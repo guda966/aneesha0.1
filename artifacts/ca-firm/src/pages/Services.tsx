@@ -88,13 +88,17 @@ export default function Services() {
   return (
     <div className="w-full pb-20">
       {/* Page Header */}
-      <section className="bg-primary text-white py-20">
-        <div className="container mx-auto px-4 md:px-6">
+      <section className="bg-primary text-white py-20 relative overflow-hidden">
+        <div className="absolute top-[-60px] right-[-60px] w-72 h-72 rounded-full bg-secondary/10 blur-3xl animate-float-slow pointer-events-none" />
+        <div className="absolute bottom-[-40px] left-[10%] w-48 h-48 rounded-full bg-white/5 blur-2xl animate-float-delay pointer-events-none" />
+        <div className="container mx-auto px-4 md:px-6 relative z-10">
           <motion.div 
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5 }}
             className="max-w-3xl"
           >
+            <p className="text-secondary text-xs font-semibold tracking-widest uppercase mb-3">What We Do</p>
             <h1 className="text-4xl md:text-5xl font-serif font-bold mb-6">Our Services</h1>
             <p className="text-xl text-gray-300 font-light leading-relaxed">
               End-to-end financial, taxation, and regulatory solutions designed to keep you compliant and competitive.
@@ -106,25 +110,32 @@ export default function Services() {
       {/* Services Grid */}
       <section className="py-20 bg-gray-50">
         <div className="container mx-auto px-4 md:px-6">
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-            {services.map((service, index) => (
+          <motion.div
+            className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8"
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true, margin: "-60px" }}
+            variants={{ visible: { transition: { staggerChildren: 0.08 } } }}
+          >
+            {services.map((service) => (
               <motion.div
                 key={service.id}
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true, margin: "-50px" }}
-                transition={{ delay: (index % 3) * 0.1 }}
+                variants={{ hidden: { opacity: 0, y: 28 }, visible: { opacity: 1, y: 0, transition: { duration: 0.5, ease: "easeOut" } } }}
               >
-                <Card className="h-full border-gray-200 hover:border-secondary/50 hover:shadow-lg transition-all duration-300 bg-white group" data-testid={`card-service-${service.id}`}>
+                <Card className="card-hover h-full border-gray-200 hover:border-secondary/40 bg-white group" data-testid={`card-service-${service.id}`}>
                   <CardContent className="p-8">
-                    <div className="w-14 h-14 bg-primary text-white rounded-lg flex items-center justify-center mb-6 shadow-sm group-hover:scale-110 transition-transform">
+                    <motion.div
+                      className="w-14 h-14 bg-primary text-white rounded-xl flex items-center justify-center mb-6 shadow-sm"
+                      whileHover={{ scale: 1.12, rotate: 3 }}
+                      transition={{ type: "spring", stiffness: 300, damping: 15 }}
+                    >
                       <service.icon className="w-7 h-7" />
-                    </div>
-                    <h3 className="text-2xl font-serif font-bold text-primary mb-4">{service.title}</h3>
-                    <ul className="space-y-3">
+                    </motion.div>
+                    <h3 className="text-xl font-serif font-bold text-primary mb-4">{service.title}</h3>
+                    <ul className="space-y-2.5">
                       {service.items.map((item, i) => (
                         <li key={i} className="flex items-start text-sm text-gray-600">
-                          <span className="text-secondary mr-2 mt-1">•</span>
+                          <span className="text-secondary mr-2 mt-0.5 text-base leading-none">›</span>
                           <span className="leading-snug">{item}</span>
                         </li>
                       ))}
@@ -133,23 +144,29 @@ export default function Services() {
                 </Card>
               </motion.div>
             ))}
-          </div>
+          </motion.div>
         </div>
       </section>
 
       {/* CTA Section */}
-      <section className="container mx-auto px-4 md:px-6 mt-10" data-testid="section-services-cta">
-        <div className="bg-primary rounded-2xl p-10 md:p-16 text-center text-white shadow-2xl relative overflow-hidden">
-          <div className="absolute top-0 right-0 -mr-20 -mt-20 w-64 h-64 rounded-full bg-white/5 blur-3xl"></div>
-          <div className="absolute bottom-0 left-0 -ml-20 -mb-20 w-64 h-64 rounded-full bg-secondary/10 blur-3xl"></div>
+      <section className="container mx-auto px-4 md:px-6 mt-10 pb-20" data-testid="section-services-cta">
+        <motion.div
+          initial={{ opacity: 0, y: 30 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.55 }}
+          className="bg-primary rounded-2xl p-10 md:p-16 text-center text-white shadow-2xl relative overflow-hidden"
+        >
+          <div className="absolute top-0 right-0 -mr-20 -mt-20 w-64 h-64 rounded-full bg-white/5 blur-3xl animate-float-slow" />
+          <div className="absolute bottom-0 left-0 -ml-20 -mb-20 w-64 h-64 rounded-full bg-secondary/10 blur-3xl animate-float-delay" />
           <div className="relative z-10 max-w-2xl mx-auto">
             <h2 className="text-3xl font-serif font-bold mb-4">Require a Custom Solution?</h2>
             <p className="text-gray-300 mb-8">Every business is unique. Contact us to discuss your specific requirements and we will design a service package tailored to your needs.</p>
-            <Button asChild size="lg" className="bg-secondary text-white hover:bg-secondary/90" data-testid="button-request-consultation">
+            <Button asChild size="lg" className="bg-secondary text-white hover:bg-secondary/90 hover:scale-105 transition-transform" data-testid="button-request-consultation">
               <Link href="/contact">Request a Consultation</Link>
             </Button>
           </div>
-        </div>
+        </motion.div>
       </section>
     </div>
   );

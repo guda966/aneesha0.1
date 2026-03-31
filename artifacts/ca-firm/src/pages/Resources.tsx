@@ -278,9 +278,12 @@ export default function Resources() {
   return (
     <div className="w-full pb-20">
       {/* Page Header */}
-      <section className="bg-primary text-white py-20" data-testid="section-resources-header">
-        <div className="container mx-auto px-4 md:px-6">
-          <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} className="max-w-3xl">
+      <section className="bg-primary text-white py-20 relative overflow-hidden" data-testid="section-resources-header">
+        <div className="absolute top-[-50px] right-[-50px] w-80 h-80 rounded-full bg-secondary/10 blur-3xl animate-float-slow pointer-events-none" />
+        <div className="absolute bottom-[-40px] left-[6%] w-56 h-56 rounded-full bg-white/5 blur-2xl animate-float-delay pointer-events-none" />
+        <div className="container mx-auto px-4 md:px-6 relative z-10">
+          <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.5 }} className="max-w-3xl">
+            <p className="text-secondary text-xs font-semibold tracking-widest uppercase mb-3">Compliance Centre</p>
             <h1 className="text-4xl md:text-5xl font-serif font-bold mb-4">Due Dates & Compliance Calendar</h1>
             <p className="text-xl text-gray-300 font-light leading-relaxed">
               Stay penalty-free. A complete reference of statutory filing deadlines across GST, Income Tax, TDS, Company Law, PF/ESI, and FEMA — updated for FY 2024-25.

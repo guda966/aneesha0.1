@@ -13,13 +13,17 @@ export default function About() {
   return (
     <div className="w-full">
       {/* Page Header */}
-      <section className="bg-primary text-white py-20" data-testid="section-about-header">
-        <div className="container mx-auto px-4 md:px-6">
+      <section className="bg-primary text-white py-20 relative overflow-hidden" data-testid="section-about-header">
+        <div className="absolute top-[-40px] right-[-40px] w-80 h-80 rounded-full bg-secondary/10 blur-3xl animate-float-slow pointer-events-none" />
+        <div className="absolute bottom-[-50px] left-[5%] w-56 h-56 rounded-full bg-white/5 blur-2xl animate-float pointer-events-none" />
+        <div className="container mx-auto px-4 md:px-6 relative z-10">
           <motion.div 
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5 }}
             className="max-w-3xl"
           >
+            <p className="text-secondary text-xs font-semibold tracking-widest uppercase mb-3">Our Firm</p>
             <h1 className="text-4xl md:text-5xl font-serif font-bold mb-6">About The Firm</h1>
             <p className="text-xl text-gray-300 font-light leading-relaxed">
               A legacy of trust, excellence, and unwavering commitment to financial clarity.
