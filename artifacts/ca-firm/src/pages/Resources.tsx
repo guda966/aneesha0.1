@@ -1,5 +1,5 @@
 import { useSEO } from "@/hooks/use-seo";
-import { motion } from "framer-motion";
+import { motion, AnimatePresence } from "framer-motion";
 import { useState } from "react";
 import { Card, CardContent } from "@/components/ui/card";
 import { ArrowRight, CalendarDays, ExternalLink, FileText, AlertCircle, Download, Info, ChevronDown, ChevronUp } from "lucide-react";
@@ -304,30 +304,40 @@ export default function Resources() {
       <section className="py-16 bg-gray-50" data-testid="section-due-dates">
         <div className="container mx-auto px-4 md:px-6">
 
-          {/* Category Filter Tabs */}
+          {/* Category Filter Tabs — with animated pill indicator */}
           <div className="flex flex-wrap gap-2 mb-10" data-testid="category-tabs">
             {categories.map(cat => (
-              <button
+              <motion.button
                 key={cat}
                 onClick={() => setActiveTab(cat)}
                 data-testid={`tab-${cat.toLowerCase().replace(/\s|\//g, "-")}`}
-                className={`px-4 py-2 rounded-full text-sm font-semibold transition-all duration-200 border ${
+                whileTap={{ scale: 0.95 }}
+                className={`relative px-4 py-2 rounded-full text-sm font-semibold transition-colors duration-200 border overflow-hidden ${
                   activeTab === cat
-                    ? "bg-primary text-white border-primary shadow-md"
+                    ? "text-white border-primary shadow-md"
                     : "bg-white text-gray-600 border-gray-200 hover:border-primary hover:text-primary"
                 }`}
               >
-                {cat}
-                {cat !== "All" && (
-                  <span className="ml-2 text-xs opacity-70">
-                    ({dueDates.filter(d => d.category === cat).length})
-                  </span>
+                {activeTab === cat && (
+                  <motion.span
+                    layoutId="tab-pill"
+                    className="absolute inset-0 bg-primary rounded-full z-0"
+                    transition={{ type: "spring", stiffness: 380, damping: 34 }}
+                  />
                 )}
-              </button>
+                <span className="relative z-10">
+                  {cat}
+                  {cat !== "All" && (
+                    <span className="ml-2 text-xs opacity-70">
+                      ({dueDates.filter(d => d.category === cat).length})
+                    </span>
+                  )}
+                </span>
+              </motion.button>
             ))}
           </div>
 
-          {/* Table — Desktop */}
+          {/* Table — Desktop (re-animates rows on tab change) */}
           <div className="hidden md:block rounded-xl overflow-hidden shadow-md border border-gray-200" data-testid="due-dates-table">
             <table className="w-full text-sm bg-white">
               <thead>
@@ -338,47 +348,68 @@ export default function Resources() {
                   <th className="px-5 py-4 font-semibold w-[18%]">Category</th>
                 </tr>
               </thead>
-              <tbody>
-                {filtered.map((item, i) => (
-                  <motion.tr
-                    key={i}
-                    initial={{ opacity: 0 }}
-                    animate={{ opacity: 1 }}
-                    transition={{ delay: i * 0.02 }}
-                    className={`border-b border-gray-100 hover:bg-gray-50 transition-colors ${i % 2 === 0 ? "bg-white" : "bg-gray-50/50"}`}
-                    data-testid={`due-date-row-${i}`}
-                  >
-                    <td className="px-5 py-4 font-semibold text-primary">{item.form}</td>
-                    <td className="px-5 py-4 text-gray-600 leading-relaxed">{item.description}</td>
-                    <td className="px-5 py-4 font-semibold text-secondary">{item.dueDate}</td>
-                    <td className="px-5 py-4">
-                      <span className={`text-xs font-bold px-2.5 py-1 rounded-full ${categoryColors[item.category]}`}>
-                        {item.category}
-                      </span>
-                    </td>
-                  </motion.tr>
-                ))}
-              </tbody>
+              <AnimatePresence mode="wait">
+                <motion.tbody
+                  key={activeTab}
+                  initial="hidden"
+                  animate="visible"
+                  exit={{ opacity: 0, transition: { duration: 0.12 } }}
+                  variants={{ visible: { transition: { staggerChildren: 0.035 } } }}
+                >
+                  {filtered.map((item, i) => (
+                    <motion.tr
+                      key={item.form}
+                      variants={{ hidden: { opacity: 0, x: -12 }, visible: { opacity: 1, x: 0, transition: { duration: 0.3, ease: "easeOut" } } }}
+                      className={`border-b border-gray-100 hover:bg-amber-50/30 transition-colors cursor-default ${i % 2 === 0 ? "bg-white" : "bg-gray-50/50"}`}
+                      data-testid={`due-date-row-${i}`}
+                    >
+                      <td className="px-5 py-4 font-semibold text-primary">{item.form}</td>
+                      <td className="px-5 py-4 text-gray-600 leading-relaxed">{item.description}</td>
+                      <td className="px-5 py-4 font-semibold text-secondary">{item.dueDate}</td>
+                      <td className="px-5 py-4">
+                        <span className={`text-xs font-bold px-2.5 py-1 rounded-full ${categoryColors[item.category]}`}>
+                          {item.category}
+                        </span>
+                      </td>
+                    </motion.tr>
+                  ))}
+                </motion.tbody>
+              </AnimatePresence>
             </table>
           </div>
 
-          {/* Cards — Mobile */}
-          <div className="md:hidden space-y-4">
-            {filtered.map((item, i) => (
-              <Card key={i} className={`border-l-4 ${categoryBorderColors[item.category]} shadow-sm`} data-testid={`due-date-card-mobile-${i}`}>
-                <CardContent className="p-5">
-                  <div className="flex items-start justify-between gap-3 mb-2">
-                    <h4 className="font-bold text-primary text-sm leading-snug">{item.form}</h4>
-                    <span className={`text-xs font-bold px-2 py-0.5 rounded-full shrink-0 ${categoryColors[item.category]}`}>
-                      {item.category}
-                    </span>
-                  </div>
-                  <p className="text-xs text-gray-600 mb-3">{item.description}</p>
-                  <p className="text-sm font-semibold text-secondary">📅 {item.dueDate}</p>
-                </CardContent>
-              </Card>
-            ))}
-          </div>
+          {/* Cards — Mobile (stagger on tab change) */}
+          <AnimatePresence mode="wait">
+            <motion.div
+              key={activeTab}
+              className="md:hidden space-y-3"
+              initial="hidden"
+              animate="visible"
+              exit={{ opacity: 0, transition: { duration: 0.1 } }}
+              variants={{ visible: { transition: { staggerChildren: 0.05 } } }}
+            >
+              {filtered.map((item, i) => (
+                <motion.div
+                  key={item.form}
+                  variants={{ hidden: { opacity: 0, y: 14 }, visible: { opacity: 1, y: 0, transition: { duration: 0.3 } } }}
+                  data-testid={`due-date-card-mobile-${i}`}
+                >
+                  <Card className={`border-l-4 ${categoryBorderColors[item.category]} shadow-sm`}>
+                    <CardContent className="p-5">
+                      <div className="flex items-start justify-between gap-3 mb-2">
+                        <h4 className="font-bold text-primary text-sm leading-snug">{item.form}</h4>
+                        <span className={`text-xs font-bold px-2 py-0.5 rounded-full shrink-0 ${categoryColors[item.category]}`}>
+                          {item.category}
+                        </span>
+                      </div>
+                      <p className="text-xs text-gray-600 mb-3">{item.description}</p>
+                      <p className="text-sm font-semibold text-secondary">📅 {item.dueDate}</p>
+                    </CardContent>
+                  </Card>
+                </motion.div>
+              ))}
+            </motion.div>
+          </AnimatePresence>
 
           <p className="text-xs text-gray-500 mt-6 flex items-start gap-2">
             <Info size={14} className="shrink-0 mt-0.5 text-secondary" />
@@ -406,12 +437,17 @@ export default function Resources() {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ delay: i * 0.08 }}
-                className="group flex items-start gap-4 bg-gray-50 border border-gray-200 rounded-xl p-5 hover:border-secondary/50 hover:shadow-md transition-all duration-300"
+                whileHover={{ y: -4, boxShadow: "0 14px 36px -8px rgba(26,46,90,0.14)" }}
+                className="group flex items-start gap-4 bg-gray-50 border border-gray-200 rounded-xl p-5 hover:border-secondary/50 transition-colors duration-200"
                 data-testid={`portal-link-${i}`}
               >
-                <div className="w-10 h-10 rounded-lg bg-primary flex items-center justify-center shrink-0 group-hover:bg-secondary transition-colors">
+                <motion.div
+                  className="w-10 h-10 rounded-lg bg-primary flex items-center justify-center shrink-0"
+                  whileHover={{ scale: 1.1, backgroundColor: "#c9a84c" }}
+                  transition={{ type: "spring", stiffness: 300, damping: 18 }}
+                >
                   <ExternalLink className="text-white w-5 h-5" />
-                </div>
+                </motion.div>
                 <div className="flex-1 min-w-0">
                   <div className="flex items-center gap-2 mb-1">
                     <h4 className="font-bold text-primary text-sm group-hover:text-secondary transition-colors">{portal.name}</h4>
@@ -443,7 +479,12 @@ export default function Resources() {
               const fyArticles = articles.filter(a => a.fy === fy);
               const isOpen = openArticleFY === fy;
               return (
-                <div key={fy} className="border border-gray-200 rounded-xl overflow-hidden bg-white shadow-sm" data-testid={`article-fy-${fy}`}>
+                <motion.div
+                  key={fy}
+                  layout
+                  className="border border-gray-200 rounded-xl overflow-hidden bg-white shadow-sm"
+                  data-testid={`article-fy-${fy}`}
+                >
                   <button
                     className="w-full flex items-center justify-between px-6 py-4 text-left hover:bg-gray-50 transition-colors"
                     onClick={() => setOpenArticleFY(isOpen ? "" : fy)}
@@ -451,35 +492,60 @@ export default function Resources() {
                   >
                     <div className="flex items-center gap-3">
                       <span className="text-lg font-serif font-bold text-primary">{fy}</span>
-                      <span className="text-xs font-semibold bg-secondary/10 text-secondary px-2.5 py-0.5 rounded-full">{fyArticles.length} articles</span>
+                      <motion.span
+                        key={isOpen ? "open" : "closed"}
+                        initial={{ opacity: 0, scale: 0.8 }}
+                        animate={{ opacity: 1, scale: 1 }}
+                        className="text-xs font-semibold bg-secondary/10 text-secondary px-2.5 py-0.5 rounded-full"
+                      >
+                        {fyArticles.length} articles
+                      </motion.span>
                     </div>
-                    {isOpen ? <ChevronUp className="text-secondary w-5 h-5 shrink-0" /> : <ChevronDown className="text-gray-400 w-5 h-5 shrink-0" />}
+                    <motion.div animate={{ rotate: isOpen ? 180 : 0 }} transition={{ duration: 0.25, ease: "easeInOut" }}>
+                      <ChevronDown className={`w-5 h-5 shrink-0 ${isOpen ? "text-secondary" : "text-gray-400"}`} />
+                    </motion.div>
                   </button>
-                  {isOpen && (
-                    <div className="border-t border-gray-100 divide-y divide-gray-50">
-                      {fyArticles.map((article, i) => (
-                        <a
-                          key={i}
-                          href={article.url}
-                          target="_blank"
-                          rel="noopener noreferrer"
-                          className="group flex items-start gap-4 px-6 py-5 hover:bg-gray-50 transition-colors"
-                          data-testid={`article-link-${fy}-${i}`}
+                  <AnimatePresence initial={false}>
+                    {isOpen && (
+                      <motion.div
+                        initial={{ height: 0, opacity: 0 }}
+                        animate={{ height: "auto", opacity: 1 }}
+                        exit={{ height: 0, opacity: 0 }}
+                        transition={{ height: { duration: 0.32, ease: [0.33, 1, 0.68, 1] }, opacity: { duration: 0.22 } }}
+                        style={{ overflow: "hidden" }}
+                      >
+                        <motion.div
+                          className="border-t border-gray-100 divide-y divide-gray-50"
+                          initial="hidden"
+                          animate="visible"
+                          variants={{ visible: { transition: { staggerChildren: 0.06, delayChildren: 0.1 } } }}
                         >
-                          <div className="flex-1 min-w-0">
-                            <div className="flex items-center gap-2 mb-1.5">
-                              <span className={`text-xs font-bold px-2.5 py-0.5 rounded-full ${categoryColors[article.tag]}`}>{article.tag}</span>
-                              <span className="text-xs text-gray-400">{article.date}</span>
-                            </div>
-                            <h4 className="font-bold text-primary font-serif text-base leading-snug mb-1.5 group-hover:text-secondary transition-colors">{article.title}</h4>
-                            <p className="text-sm text-gray-600 leading-relaxed">{article.excerpt}</p>
-                          </div>
-                          <ExternalLink className="text-gray-300 group-hover:text-secondary transition-colors shrink-0 mt-1 w-5 h-5" />
-                        </a>
-                      ))}
-                    </div>
-                  )}
-                </div>
+                          {fyArticles.map((article, i) => (
+                            <motion.a
+                              key={i}
+                              variants={{ hidden: { opacity: 0, x: -10 }, visible: { opacity: 1, x: 0, transition: { duration: 0.28 } } }}
+                              href={article.url}
+                              target="_blank"
+                              rel="noopener noreferrer"
+                              className="group flex items-start gap-4 px-6 py-5 hover:bg-gray-50 transition-colors"
+                              data-testid={`article-link-${fy}-${i}`}
+                            >
+                              <div className="flex-1 min-w-0">
+                                <div className="flex items-center gap-2 mb-1.5">
+                                  <span className={`text-xs font-bold px-2.5 py-0.5 rounded-full ${categoryColors[article.tag]}`}>{article.tag}</span>
+                                  <span className="text-xs text-gray-400">{article.date}</span>
+                                </div>
+                                <h4 className="font-bold text-primary font-serif text-base leading-snug mb-1.5 group-hover:text-secondary transition-colors">{article.title}</h4>
+                                <p className="text-sm text-gray-600 leading-relaxed">{article.excerpt}</p>
+                              </div>
+                              <ExternalLink className="text-gray-300 group-hover:text-secondary transition-colors shrink-0 mt-1 w-5 h-5 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform" />
+                            </motion.a>
+                          ))}
+                        </motion.div>
+                      </motion.div>
+                    )}
+                  </AnimatePresence>
+                </motion.div>
               );
             })}
           </div>
@@ -504,7 +570,7 @@ export default function Resources() {
                   const fyDownloads = downloads.filter(d => d.fy === fy);
                   const isOpen = openDownloadFY === fy;
                   return (
-                    <div key={fy} className="border border-gray-200 rounded-xl overflow-hidden bg-gray-50 shadow-sm" data-testid={`download-fy-${fy}`}>
+                    <motion.div key={fy} layout className="border border-gray-200 rounded-xl overflow-hidden bg-gray-50 shadow-sm" data-testid={`download-fy-${fy}`}>
                       <button
                         className="w-full flex items-center justify-between px-6 py-4 text-left hover:bg-gray-100 transition-colors"
                         onClick={() => setOpenDownloadFY(isOpen ? "" : fy)}
@@ -514,13 +580,29 @@ export default function Resources() {
                           <span className="text-lg font-serif font-bold text-primary">{fy}</span>
                           <span className="text-xs font-semibold bg-primary/10 text-primary px-2.5 py-0.5 rounded-full">{fyDownloads.length} resources</span>
                         </div>
-                        {isOpen ? <ChevronUp className="text-secondary w-5 h-5 shrink-0" /> : <ChevronDown className="text-gray-400 w-5 h-5 shrink-0" />}
+                        <motion.div animate={{ rotate: isOpen ? 180 : 0 }} transition={{ duration: 0.25, ease: "easeInOut" }}>
+                          <ChevronDown className={`w-5 h-5 shrink-0 ${isOpen ? "text-secondary" : "text-gray-400"}`} />
+                        </motion.div>
                       </button>
+                      <AnimatePresence initial={false}>
                       {isOpen && (
-                        <div className="border-t border-gray-200 bg-white divide-y divide-gray-50">
+                        <motion.div
+                          initial={{ height: 0, opacity: 0 }}
+                          animate={{ height: "auto", opacity: 1 }}
+                          exit={{ height: 0, opacity: 0 }}
+                          transition={{ height: { duration: 0.32, ease: [0.33, 1, 0.68, 1] }, opacity: { duration: 0.22 } }}
+                          style={{ overflow: "hidden" }}
+                        >
+                        <motion.div
+                          className="border-t border-gray-200 bg-white divide-y divide-gray-50"
+                          initial="hidden"
+                          animate="visible"
+                          variants={{ visible: { transition: { staggerChildren: 0.055, delayChildren: 0.08 } } }}
+                        >
                           {fyDownloads.map((item, i) => (
-                            <a
+                            <motion.a
                               key={i}
+                              variants={{ hidden: { opacity: 0, x: -10 }, visible: { opacity: 1, x: 0, transition: { duration: 0.28 } } }}
                               href={item.url}
                               target="_blank"
                               rel="noopener noreferrer"
@@ -538,11 +620,13 @@ export default function Resources() {
                                 <p className="text-xs text-gray-500">{item.desc}</p>
                               </div>
                               <ExternalLink className="w-4 h-4 text-gray-300 group-hover:text-secondary shrink-0 transition-colors" />
-                            </a>
+                            </motion.a>
                           ))}
-                        </div>
+                        </motion.div>
+                        </motion.div>
                       )}
-                    </div>
+                      </AnimatePresence>
+                    </motion.div>
                   );
                 })}
               </div>
