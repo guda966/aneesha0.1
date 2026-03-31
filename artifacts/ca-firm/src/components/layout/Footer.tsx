@@ -82,6 +82,19 @@ export function Footer() {
             &copy; {new Date().getFullYear()} Mehta & Associates. All rights reserved.
           </p>
         </div>
+        <div className="text-center pt-4 mt-2 border-t border-white/5">
+          <p className="text-xs text-gray-500">
+            Designed &amp; Maintained by{" "}
+            <a
+              href="https://leoaxis.com"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-secondary hover:text-secondary/80 font-semibold transition-colors"
+            >
+              Leoaxis
+            </a>
+          </p>
+        </div>
       </div>
     </footer>
   );
