@@ -59,7 +59,7 @@ const heroSlides = [
   {
     tag: "ICAI Registered Firm",
     headline: "Trusted Expertise in Tax & Audit",
-    sub: "Experienced professionals ensuring compliance, accurate reporting, and zero-penalty filings for 25+ years.",
+    sub: "Experienced professionals ensuring compliance, accurate reporting, and zero-penalty filings for 30+ years.",
     img: meetingImg,
     imgAlt: "CA professionals in a client meeting",
   },
@@ -201,7 +201,7 @@ export default function Home() {
       <section className="bg-white border-b border-gray-100 py-10 relative z-30 -mt-10 mx-4 md:mx-auto container rounded-lg shadow-xl" data-testid="section-trust-signals">
         <div className="grid grid-cols-2 md:grid-cols-4 gap-6 px-6 text-center divide-x divide-gray-100">
           {[
-            { to: 25, suffix: "+", label: "Years Experience" },
+            { to: 30, suffix: "+", label: "Years Experience" },
             { to: 2000, suffix: "+", label: "Clients Served" },
             { to: 50, suffix: "+", label: "Professional Experts" },
             { to: null, suffix: "Pan-India", label: "Presence" },

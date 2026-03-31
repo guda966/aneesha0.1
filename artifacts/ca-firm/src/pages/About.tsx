@@ -35,7 +35,7 @@ function CountUp({ to, duration = 2 }: { to: number; duration?: number }) {
 }
 
 const stats = [
-  { value: 25, suffix: "+", label: "Years of Excellence", icon: Award },
+  { value: 30, suffix: "+", label: "Years of Excellence", icon: Award },
   { value: 2000, suffix: "+", label: "Clients Served", icon: Users },
   { value: 50, suffix: "+", label: "Professional Experts", icon: GraduationCap },
   { value: 15, suffix: "+", label: "Industry Sectors", icon: Globe },
