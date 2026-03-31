@@ -483,9 +483,8 @@ export default function Resources() {
               const fyArticles = articles.filter(a => a.fy === fy);
               const isOpen = openArticleFY === fy;
               return (
-                <motion.div
+                <div
                   key={fy}
-                  layout
                   className="border border-gray-200 rounded-xl overflow-hidden bg-white shadow-sm"
                   data-testid={`article-fy-${fy}`}
                 >
@@ -549,7 +548,7 @@ export default function Resources() {
                       </motion.div>
                     )}
                   </AnimatePresence>
-                </motion.div>
+                </div>
               );
             })}
           </div>
@@ -574,7 +573,7 @@ export default function Resources() {
                   const fyDownloads = downloads.filter(d => d.fy === fy);
                   const isOpen = openDownloadFY === fy;
                   return (
-                    <motion.div key={fy} layout className="border border-gray-200 rounded-xl overflow-hidden bg-gray-50 shadow-sm" data-testid={`download-fy-${fy}`}>
+                    <div key={fy} className="border border-gray-200 rounded-xl overflow-hidden bg-gray-50 shadow-sm" data-testid={`download-fy-${fy}`}>
                       <button
                         className="w-full flex items-center justify-between px-6 py-4 text-left hover:bg-gray-100 transition-colors"
                         onClick={() => setOpenDownloadFY(isOpen ? "" : fy)}
@@ -630,7 +629,7 @@ export default function Resources() {
                         </motion.div>
                       )}
                       </AnimatePresence>
-                    </motion.div>
+                    </div>
                   );
                 })}
               </div>
