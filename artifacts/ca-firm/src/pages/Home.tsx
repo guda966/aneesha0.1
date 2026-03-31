@@ -29,6 +29,25 @@ function FadeIn({ children, delay = 0, className = "" }: { children: React.React
   );
 }
 
+function CountUp({ to, duration = 2 }: { to: number; duration?: number }) {
+  const ref = useRef(null);
+  const isInView = useInView(ref, { once: true, margin: "-40px" });
+  const [count, setCount] = useState(0);
+  useEffect(() => {
+    if (!isInView) return;
+    const startTime = performance.now();
+    const step = (now: number) => {
+      const progress = Math.min((now - startTime) / (duration * 1000), 1);
+      const eased = 1 - Math.pow(1 - progress, 3);
+      setCount(Math.floor(eased * to));
+      if (progress < 1) requestAnimationFrame(step);
+      else setCount(to);
+    };
+    requestAnimationFrame(step);
+  }, [isInView, to, duration]);
+  return <span ref={ref}>{count}</span>;
+}
+
 const heroSlides = [
   {
     tag: "Established 1998",
@@ -182,13 +201,15 @@ export default function Home() {
       <section className="bg-white border-b border-gray-100 py-10 relative z-30 -mt-10 mx-4 md:mx-auto container rounded-lg shadow-xl" data-testid="section-trust-signals">
         <div className="grid grid-cols-2 md:grid-cols-4 gap-6 px-6 text-center divide-x divide-gray-100">
           {[
-            { stat: "25+", label: "Years Experience" },
-            { stat: "2000+", label: "Clients Served" },
-            { stat: "50+", label: "Professional Experts" },
-            { stat: "Pan-India", label: "Presence" },
+            { to: 25, suffix: "+", label: "Years Experience" },
+            { to: 2000, suffix: "+", label: "Clients Served" },
+            { to: 50, suffix: "+", label: "Professional Experts" },
+            { to: null, suffix: "Pan-India", label: "Presence" },
           ].map((item) => (
             <div key={item.label} className="flex flex-col items-center">
-              <span className="text-3xl md:text-4xl font-serif font-bold text-primary mb-1">{item.stat}</span>
+              <span className="text-3xl md:text-4xl font-serif font-bold text-primary mb-1">
+                {item.to !== null ? <><CountUp to={item.to} />{item.suffix}</> : item.suffix}
+              </span>
               <span className="text-xs font-medium text-gray-500 uppercase tracking-wider">{item.label}</span>
             </div>
           ))}
@@ -221,7 +242,7 @@ export default function Home() {
               <h2 className="text-xs font-semibold tracking-widest text-secondary uppercase mb-3">About The Firm</h2>
               <h3 className="text-3xl md:text-4xl font-serif font-bold text-primary mb-6">Navigating Complexity with Insight and Integrity</h3>
               <p className="text-gray-600 mb-6 text-lg leading-relaxed">
-                Palod & Loya is a trusted Chartered Accountants firm offering customized Assurance, Taxation, and Advisory services designed to empower your business with integrity and precision.
+                Gantasala & Associates is a trusted Chartered Accountants firm offering customized Assurance, Taxation, and Advisory services designed to empower your business with integrity and precision.
               </p>
               <ul className="space-y-3 mb-8">
                 {[
