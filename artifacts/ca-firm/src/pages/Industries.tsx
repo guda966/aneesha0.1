@@ -9,7 +9,8 @@ import {
   GraduationCap, 
   ShoppingCart, 
   Hotel, 
-  LineChart 
+  LineChart,
+  Heart
 } from "lucide-react";
 
 export default function Industries() {
@@ -40,9 +41,14 @@ export default function Industries() {
       desc: "Capital intensive equipment depreciation advisory, regulatory compliance for trusts/hospitals, and transfer pricing for pharma exports."
     },
     {
-      title: "Education & NGO/Trusts",
+      title: "Education",
       icon: GraduationCap,
-      desc: "12A/80G registrations, FCRA compliance, trust audits, and advisory on surplus fund deployment adhering to strict regulatory frameworks."
+      desc: "Tax exemption advisory for educational institutions, fee structure compliance, Section 10(23C) certifications, and FCRA compliance for aided institutions."
+    },
+    {
+      title: "NGO & Trusts",
+      icon: Heart,
+      desc: "12A/80G registrations, FCRA compliance, trust audits, CSR fund advisory, and surplus fund deployment guidance adhering to strict regulatory frameworks."
     },
     {
       title: "Retail & FMCG",

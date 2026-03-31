@@ -21,10 +21,10 @@ export function Footer() {
               A heritage firm blending deep expertise with approachable service. Your financial clarity is our expertise.
             </p>
             <div className="flex gap-4">
-              <a href="#" className="w-10 h-10 rounded-full bg-white/10 flex items-center justify-center hover:bg-secondary hover:text-primary transition-colors" data-testid="footer-social-linkedin">
+              <a href="https://www.linkedin.com/company/mehtaandassociates" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn" className="w-10 h-10 rounded-full bg-white/10 flex items-center justify-center hover:bg-secondary hover:text-primary transition-colors" data-testid="footer-social-linkedin">
                 <Linkedin size={18} />
               </a>
-              <a href="#" className="w-10 h-10 rounded-full bg-white/10 flex items-center justify-center hover:bg-secondary hover:text-primary transition-colors" data-testid="footer-social-facebook">
+              <a href="https://www.facebook.com/mehtaandassociates" target="_blank" rel="noopener noreferrer" aria-label="Facebook" className="w-10 h-10 rounded-full bg-white/10 flex items-center justify-center hover:bg-secondary hover:text-primary transition-colors" data-testid="footer-social-facebook">
                 <Facebook size={18} />
               </a>
             </div>
@@ -68,9 +68,15 @@ export function Footer() {
                 <Mail size={18} className="text-secondary shrink-0" />
                 <span>info@mehtaandassociates.com</span>
               </li>
-              <li className="pt-2">
-                <span className="text-xs text-gray-400 font-medium tracking-wide uppercase">ICAI Firm Reg No.</span>
-                <div className="text-secondary font-semibold">123456W</div>
+              <li className="pt-2 space-y-2">
+                <div>
+                  <span className="text-xs text-gray-400 font-medium tracking-wide uppercase">ICAI Membership No.</span>
+                  <div className="text-secondary font-semibold">FCA 123456</div>
+                </div>
+                <div>
+                  <span className="text-xs text-gray-400 font-medium tracking-wide uppercase">Firm Registration No.</span>
+                  <div className="text-secondary font-semibold">123456W</div>
+                </div>
               </li>
             </ul>
           </div>
