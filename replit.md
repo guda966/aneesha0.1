@@ -21,7 +21,8 @@ pnpm workspace monorepo using TypeScript. Each package manages its own dependenc
 ```text
 artifacts-monorepo/
 ├── artifacts/              # Deployable applications
-│   └── api-server/         # Express API server
+│   ├── api-server/         # Express API server
+│   └── ca-firm/            # CA firm professional website (React + Vite)
 ├── lib/                    # Shared libraries
 │   ├── api-spec/           # OpenAPI spec + Orval codegen config
 │   ├── api-client-react/   # Generated React Query hooks
@@ -90,6 +91,17 @@ Generated Zod schemas from the OpenAPI spec (e.g. `HealthCheckResponse`). Used b
 ### `lib/api-client-react` (`@workspace/api-client-react`)
 
 Generated React Query hooks and fetch client from the OpenAPI spec (e.g. `useHealthCheck`, `healthCheck`).
+
+### `artifacts/ca-firm` (`@workspace/ca-firm`)
+
+Multi-page professional website for an Indian CA (Chartered Accountant) firm. Presentation-first React + Vite app with no backend.
+
+- Firm name: "Mehta & Associates" — Chartered Accountants, Mumbai
+- Pages: Home, About Firm, Services, Industries, Resources, Contact
+- Features: Sticky nav with mobile hamburger, floating WhatsApp button, AI-generated hero images, compliance calendar, client inquiry form, framer-motion animations
+- Theme: Navy #1a2e5a + Gold #c9a84c, Playfair Display + Inter fonts
+- SEO: Per-page title, meta description, Open Graph via useSEO hook
+- Served at: `/` (root preview path)
 
 ### `scripts` (`@workspace/scripts`)
 

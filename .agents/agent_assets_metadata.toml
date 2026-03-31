@@ -1,0 +1,20 @@
+uploads = []
+outputs = []
+
+[[generated]]
+id = "IBlgkszJAbaj7juEzg0kz"
+uri = "file://artifacts/ca-firm/src/assets/images/office.png"
+type = "image"
+title = "Luxury wood-paneled executive office"
+
+[[generated]]
+id = "l2k9v7v0kgH0PnHnaUHZ4"
+uri = "file://artifacts/ca-firm/src/assets/images/ca-work.png"
+type = "image"
+title = "CA reviewing documents"
+
+[[generated]]
+id = "pETQGQ2ZOE3FcSEwBulMc"
+uri = "file://artifacts/ca-firm/src/assets/images/meeting.png"
+type = "image"
+title = "Indian business meeting"
