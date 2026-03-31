@@ -1,5 +1,5 @@
 import { useSEO } from "@/hooks/use-seo";
-import { motion, AnimatePresence, LayoutGroup } from "framer-motion";
+import { motion, AnimatePresence } from "framer-motion";
 import { useState } from "react";
 import { Card, CardContent } from "@/components/ui/card";
 import { ArrowRight, CalendarDays, ExternalLink, FileText, AlertCircle, Download, Info, ChevronDown, ChevronUp } from "lucide-react";
@@ -304,116 +304,80 @@ export default function Resources() {
       <section className="py-16 bg-gray-50" data-testid="section-due-dates">
         <div className="container mx-auto px-4 md:px-6">
 
-          {/* Category Filter Tabs — with animated pill indicator scoped to this mount */}
-          <LayoutGroup id="resources-filter-group">
+          {/* Category Filter Tabs */}
           <div className="flex flex-wrap gap-2 mb-10" data-testid="category-tabs">
             {categories.map(cat => (
-              <motion.button
+              <button
                 key={cat}
                 onClick={() => setActiveTab(cat)}
                 data-testid={`tab-${cat.toLowerCase().replace(/\s|\//g, "-")}`}
-                whileTap={{ scale: 0.95 }}
-                className={`relative px-4 py-2 rounded-full text-sm font-semibold transition-colors duration-200 border overflow-hidden ${
+                className={`px-4 py-2 rounded-full text-sm font-semibold transition-all duration-200 border ${
                   activeTab === cat
-                    ? "text-white border-primary shadow-md"
+                    ? "bg-primary text-white border-primary shadow-md"
                     : "bg-white text-gray-600 border-gray-200 hover:border-primary hover:text-primary"
                 }`}
               >
-                {activeTab === cat && (
-                  <motion.span
-                    layoutId="tab-pill"
-                    className="absolute inset-0 bg-primary rounded-full z-0"
-                    transition={{ type: "spring", stiffness: 380, damping: 34 }}
-                  />
+                {cat}
+                {cat !== "All" && (
+                  <span className="ml-2 text-xs opacity-70">
+                    ({dueDates.filter(d => d.category === cat).length})
+                  </span>
                 )}
-                <span className="relative z-10">
-                  {cat}
-                  {cat !== "All" && (
-                    <span className="ml-2 text-xs opacity-70">
-                      ({dueDates.filter(d => d.category === cat).length})
-                    </span>
-                  )}
-                </span>
-              </motion.button>
+              </button>
             ))}
           </div>
-          </LayoutGroup>
 
-          {/* Table — Desktop (AnimatePresence wraps the whole table div, NOT inside <table>) */}
-          <AnimatePresence mode="wait">
-            <motion.div
-              key={activeTab}
-              className="hidden md:block rounded-xl overflow-hidden shadow-md border border-gray-200"
-              data-testid="due-dates-table"
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1, transition: { duration: 0.22 } }}
-              exit={{ opacity: 0, transition: { duration: 0.12 } }}
-            >
-              <table className="w-full text-sm bg-white">
-                <thead>
-                  <tr className="bg-primary text-white text-left">
-                    <th className="px-5 py-4 font-semibold w-[22%]">Form / Compliance</th>
-                    <th className="px-5 py-4 font-semibold w-[38%]">Description</th>
-                    <th className="px-5 py-4 font-semibold w-[22%]">Due Date</th>
-                    <th className="px-5 py-4 font-semibold w-[18%]">Category</th>
+          {/* Table — Desktop */}
+          <div className="hidden md:block rounded-xl overflow-hidden shadow-md border border-gray-200" data-testid="due-dates-table">
+            <table className="w-full text-sm bg-white">
+              <thead>
+                <tr className="bg-primary text-white text-left">
+                  <th className="px-5 py-4 font-semibold w-[22%]">Form / Compliance</th>
+                  <th className="px-5 py-4 font-semibold w-[38%]">Description</th>
+                  <th className="px-5 py-4 font-semibold w-[22%]">Due Date</th>
+                  <th className="px-5 py-4 font-semibold w-[18%]">Category</th>
+                </tr>
+              </thead>
+              <tbody>
+                {filtered.map((item, i) => (
+                  <tr
+                    key={item.form}
+                    className={`border-b border-gray-100 hover:bg-amber-50/30 transition-colors cursor-default ${i % 2 === 0 ? "bg-white" : "bg-gray-50/50"}`}
+                    data-testid={`due-date-row-${i}`}
+                  >
+                    <td className="px-5 py-4 font-semibold text-primary">{item.form}</td>
+                    <td className="px-5 py-4 text-gray-600 leading-relaxed">{item.description}</td>
+                    <td className="px-5 py-4 font-semibold text-secondary">{item.dueDate}</td>
+                    <td className="px-5 py-4">
+                      <span className={`text-xs font-bold px-2.5 py-1 rounded-full ${categoryColors[item.category]}`}>
+                        {item.category}
+                      </span>
+                    </td>
                   </tr>
-                </thead>
-                <tbody>
-                  {filtered.map((item, i) => (
-                    <motion.tr
-                      key={item.form}
-                      initial={{ opacity: 0, x: -12 }}
-                      animate={{ opacity: 1, x: 0, transition: { duration: 0.28, ease: "easeOut", delay: i * 0.03 } }}
-                      className={`border-b border-gray-100 hover:bg-amber-50/30 transition-colors cursor-default ${i % 2 === 0 ? "bg-white" : "bg-gray-50/50"}`}
-                      data-testid={`due-date-row-${i}`}
-                    >
-                      <td className="px-5 py-4 font-semibold text-primary">{item.form}</td>
-                      <td className="px-5 py-4 text-gray-600 leading-relaxed">{item.description}</td>
-                      <td className="px-5 py-4 font-semibold text-secondary">{item.dueDate}</td>
-                      <td className="px-5 py-4">
-                        <span className={`text-xs font-bold px-2.5 py-1 rounded-full ${categoryColors[item.category]}`}>
-                          {item.category}
-                        </span>
-                      </td>
-                    </motion.tr>
-                  ))}
-                </tbody>
-              </table>
-            </motion.div>
-          </AnimatePresence>
+                ))}
+              </tbody>
+            </table>
+          </div>
 
-          {/* Cards — Mobile (stagger on tab change) */}
-          <AnimatePresence mode="wait">
-            <motion.div
-              key={activeTab}
-              className="md:hidden space-y-3"
-              initial="hidden"
-              animate="visible"
-              exit={{ opacity: 0, transition: { duration: 0.1 } }}
-              variants={{ visible: { transition: { staggerChildren: 0.05 } } }}
-            >
-              {filtered.map((item, i) => (
-                <motion.div
-                  key={item.form}
-                  variants={{ hidden: { opacity: 0, y: 14 }, visible: { opacity: 1, y: 0, transition: { duration: 0.3 } } }}
-                  data-testid={`due-date-card-mobile-${i}`}
-                >
-                  <Card className={`border-l-4 ${categoryBorderColors[item.category]} shadow-sm`}>
-                    <CardContent className="p-5">
-                      <div className="flex items-start justify-between gap-3 mb-2">
-                        <h4 className="font-bold text-primary text-sm leading-snug">{item.form}</h4>
-                        <span className={`text-xs font-bold px-2 py-0.5 rounded-full shrink-0 ${categoryColors[item.category]}`}>
-                          {item.category}
-                        </span>
-                      </div>
-                      <p className="text-xs text-gray-600 mb-3">{item.description}</p>
-                      <p className="text-sm font-semibold text-secondary">📅 {item.dueDate}</p>
-                    </CardContent>
-                  </Card>
-                </motion.div>
-              ))}
-            </motion.div>
-          </AnimatePresence>
+          {/* Cards — Mobile */}
+          <div className="md:hidden space-y-3">
+            {filtered.map((item, i) => (
+              <div key={item.form} data-testid={`due-date-card-mobile-${i}`}>
+                <Card className={`border-l-4 ${categoryBorderColors[item.category]} shadow-sm`}>
+                  <CardContent className="p-5">
+                    <div className="flex items-start justify-between gap-3 mb-2">
+                      <h4 className="font-bold text-primary text-sm leading-snug">{item.form}</h4>
+                      <span className={`text-xs font-bold px-2 py-0.5 rounded-full shrink-0 ${categoryColors[item.category]}`}>
+                        {item.category}
+                      </span>
+                    </div>
+                    <p className="text-xs text-gray-600 mb-3">{item.description}</p>
+                    <p className="text-sm font-semibold text-secondary">📅 {item.dueDate}</p>
+                  </CardContent>
+                </Card>
+              </div>
+            ))}
+          </div>
 
           <p className="text-xs text-gray-500 mt-6 flex items-start gap-2">
             <Info size={14} className="shrink-0 mt-0.5 text-secondary" />
