@@ -40,6 +40,27 @@ export function Header() {
     leaveTimer.current = setTimeout(() => setServicesOpen(false), 120);
   };
 
+  const handleServiceClick = (id: string) => {
+    setServicesOpen(false);
+    if (location === "/services") {
+      setTimeout(() => {
+        const el = document.getElementById(id);
+        if (el) el.scrollIntoView({ behavior: "smooth", block: "start" });
+      }, 50);
+    }
+  };
+
+  const handleMobileServiceClick = (id: string) => {
+    setMobileMenuOpen(false);
+    setMobileServicesOpen(false);
+    if (location === "/services") {
+      setTimeout(() => {
+        const el = document.getElementById(id);
+        if (el) el.scrollIntoView({ behavior: "smooth", block: "start" });
+      }, 120);
+    }
+  };
+
   const navLinks = [
     { href: "/", label: "Home" },
     { href: "/about", label: "About Firm" },
@@ -144,7 +165,7 @@ export function Header() {
                         <Link
                           key={s.id}
                           href={`/services#${s.id}`}
-                          onClick={() => setServicesOpen(false)}
+                          onClick={() => handleServiceClick(s.id)}
                           className="flex items-center gap-2 px-3 py-2 rounded-lg text-sm text-gray-700 hover:bg-primary/5 hover:text-primary transition-colors group"
                         >
                           <span className="w-1.5 h-1.5 rounded-full bg-secondary shrink-0 group-hover:scale-125 transition-transform" />
@@ -237,7 +258,7 @@ export function Header() {
                       <Link
                         key={s.id}
                         href={`/services#${s.id}`}
-                        onClick={() => { setMobileMenuOpen(false); setMobileServicesOpen(false); }}
+                        onClick={() => handleMobileServiceClick(s.id)}
                         className="block py-2.5 px-4 text-xs text-gray-600 hover:text-primary border-b border-gray-100 last:border-0"
                       >
                         › {s.label}
