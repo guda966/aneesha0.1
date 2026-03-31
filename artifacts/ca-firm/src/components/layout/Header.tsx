@@ -1,6 +1,6 @@
 import { Link, useLocation } from "wouter";
 import { useState, useEffect } from "react";
-import { Menu, X, Phone, Mail, Linkedin, Facebook, Youtube, Instagram } from "lucide-react";
+import { Menu, X, Phone, Mail } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
 
@@ -46,21 +46,6 @@ export function Header() {
             <a href="mailto:info@mehtaandassociates.com" className="flex items-center gap-1.5 hover:text-secondary transition-colors" data-testid="topbar-email">
               <Mail size={11} />
               info@mehtaandassociates.com
-            </a>
-          </div>
-          <div className="flex items-center gap-3">
-            <span className="text-gray-400 hidden sm:block">Follow Us:</span>
-            <a href="https://www.linkedin.com/company/mehtaandassociates" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn" className="hover:text-secondary transition-colors" data-testid="topbar-linkedin">
-              <Linkedin size={13} />
-            </a>
-            <a href="https://www.facebook.com/mehtaandassociates" target="_blank" rel="noopener noreferrer" aria-label="Facebook" className="hover:text-secondary transition-colors" data-testid="topbar-facebook">
-              <Facebook size={13} />
-            </a>
-            <a href="https://www.youtube.com/@mehtaandassociates" target="_blank" rel="noopener noreferrer" aria-label="YouTube" className="hover:text-secondary transition-colors" data-testid="topbar-youtube">
-              <Youtube size={13} />
-            </a>
-            <a href="https://www.instagram.com/mehtaandassociates" target="_blank" rel="noopener noreferrer" aria-label="Instagram" className="hover:text-secondary transition-colors" data-testid="topbar-instagram">
-              <Instagram size={13} />
             </a>
           </div>
         </div>
