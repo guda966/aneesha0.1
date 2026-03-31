@@ -1,5 +1,5 @@
 import { useSEO } from "@/hooks/use-seo";
-import { motion, AnimatePresence } from "framer-motion";
+import { motion, AnimatePresence, LayoutGroup } from "framer-motion";
 import { useState } from "react";
 import { Card, CardContent } from "@/components/ui/card";
 import { ArrowRight, CalendarDays, ExternalLink, FileText, AlertCircle, Download, Info, ChevronDown, ChevronUp } from "lucide-react";
@@ -304,7 +304,8 @@ export default function Resources() {
       <section className="py-16 bg-gray-50" data-testid="section-due-dates">
         <div className="container mx-auto px-4 md:px-6">
 
-          {/* Category Filter Tabs — with animated pill indicator */}
+          {/* Category Filter Tabs — with animated pill indicator scoped to this mount */}
+          <LayoutGroup id="resources-filter-group">
           <div className="flex flex-wrap gap-2 mb-10" data-testid="category-tabs">
             {categories.map(cat => (
               <motion.button
@@ -336,30 +337,33 @@ export default function Resources() {
               </motion.button>
             ))}
           </div>
+          </LayoutGroup>
 
-          {/* Table — Desktop (re-animates rows on tab change) */}
-          <div className="hidden md:block rounded-xl overflow-hidden shadow-md border border-gray-200" data-testid="due-dates-table">
-            <table className="w-full text-sm bg-white">
-              <thead>
-                <tr className="bg-primary text-white text-left">
-                  <th className="px-5 py-4 font-semibold w-[22%]">Form / Compliance</th>
-                  <th className="px-5 py-4 font-semibold w-[38%]">Description</th>
-                  <th className="px-5 py-4 font-semibold w-[22%]">Due Date</th>
-                  <th className="px-5 py-4 font-semibold w-[18%]">Category</th>
-                </tr>
-              </thead>
-              <AnimatePresence mode="wait">
-                <motion.tbody
-                  key={activeTab}
-                  initial="hidden"
-                  animate="visible"
-                  exit={{ opacity: 0, transition: { duration: 0.12 } }}
-                  variants={{ visible: { transition: { staggerChildren: 0.035 } } }}
-                >
+          {/* Table — Desktop (AnimatePresence wraps the whole table div, NOT inside <table>) */}
+          <AnimatePresence mode="wait">
+            <motion.div
+              key={activeTab}
+              className="hidden md:block rounded-xl overflow-hidden shadow-md border border-gray-200"
+              data-testid="due-dates-table"
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1, transition: { duration: 0.22 } }}
+              exit={{ opacity: 0, transition: { duration: 0.12 } }}
+            >
+              <table className="w-full text-sm bg-white">
+                <thead>
+                  <tr className="bg-primary text-white text-left">
+                    <th className="px-5 py-4 font-semibold w-[22%]">Form / Compliance</th>
+                    <th className="px-5 py-4 font-semibold w-[38%]">Description</th>
+                    <th className="px-5 py-4 font-semibold w-[22%]">Due Date</th>
+                    <th className="px-5 py-4 font-semibold w-[18%]">Category</th>
+                  </tr>
+                </thead>
+                <tbody>
                   {filtered.map((item, i) => (
                     <motion.tr
                       key={item.form}
-                      variants={{ hidden: { opacity: 0, x: -12 }, visible: { opacity: 1, x: 0, transition: { duration: 0.3, ease: "easeOut" } } }}
+                      initial={{ opacity: 0, x: -12 }}
+                      animate={{ opacity: 1, x: 0, transition: { duration: 0.28, ease: "easeOut", delay: i * 0.03 } }}
                       className={`border-b border-gray-100 hover:bg-amber-50/30 transition-colors cursor-default ${i % 2 === 0 ? "bg-white" : "bg-gray-50/50"}`}
                       data-testid={`due-date-row-${i}`}
                     >
@@ -373,10 +377,10 @@ export default function Resources() {
                       </td>
                     </motion.tr>
                   ))}
-                </motion.tbody>
-              </AnimatePresence>
-            </table>
-          </div>
+                </tbody>
+              </table>
+            </motion.div>
+          </AnimatePresence>
 
           {/* Cards — Mobile (stagger on tab change) */}
           <AnimatePresence mode="wait">
