@@ -91,7 +91,7 @@ export function Footer() {
               rel="noopener noreferrer"
               className="text-secondary hover:text-secondary/80 font-semibold transition-colors"
             >
-              Leoaxis
+              Leoaxis Technologies Pvt Ltd
             </a>
           </p>
         </div>
