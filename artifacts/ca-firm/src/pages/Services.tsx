@@ -190,15 +190,25 @@ export default function Services() {
   const [expandedId, setExpandedId] = useState<string | null>(null);
   const [location] = useLocation();
 
-  useEffect(() => {
+  const scrollToHash = (delay = 400) => {
     const hash = window.location.hash.replace("#", "");
     if (hash) {
       setTimeout(() => {
         const el = document.getElementById(hash);
         if (el) el.scrollIntoView({ behavior: "smooth", block: "start" });
-      }, 400);
+      }, delay);
     }
+  };
+
+  useEffect(() => {
+    scrollToHash(400);
   }, [location]);
+
+  useEffect(() => {
+    const onHashChange = () => scrollToHash(100);
+    window.addEventListener("hashchange", onHashChange);
+    return () => window.removeEventListener("hashchange", onHashChange);
+  }, []);
 
   return (
     <div className="w-full pb-20">
