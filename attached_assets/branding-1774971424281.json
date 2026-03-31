@@ -1,0 +1,140 @@
+{
+  "colorScheme": "light",
+  "fonts": [
+    {
+      "family": "Poppins",
+      "role": "body"
+    }
+  ],
+  "colors": {
+    "primary": "#295782",
+    "secondary": "#2575FC",
+    "accent": "#295782",
+    "background": "#F9F9F9",
+    "textPrimary": "#295782",
+    "link": "#295782"
+  },
+  "typography": {
+    "fontFamilies": {
+      "primary": "Poppins",
+      "heading": "Poppins"
+    },
+    "fontStacks": {
+      "heading": [
+        "Arial",
+        "sans-serif"
+      ],
+      "body": [
+        "Arial",
+        "sans-serif"
+      ],
+      "paragraph": [
+        "Poppins",
+        "sans-serif"
+      ]
+    },
+    "fontSizes": {
+      "h1": "16px",
+      "h2": "32px",
+      "body": "16px"
+    }
+  },
+  "spacing": {
+    "baseUnit": 4,
+    "borderRadius": "5px"
+  },
+  "components": {
+    "input": {
+      "background": "#FFFFFF",
+      "textColor": "#1F2124",
+      "borderColor": "#69727D",
+      "borderRadius": "4px",
+      "borderRadiusCorners": {
+        "topLeft": "4px",
+        "topRight": "4px",
+        "bottomRight": "4px",
+        "bottomLeft": "4px"
+      },
+      "shadow": "none"
+    },
+    "buttonPrimary": {
+      "background": "#295782",
+      "textColor": "#FFFFFF",
+      "borderRadius": "5px",
+      "borderRadiusCorners": {
+        "topLeft": "5px",
+        "topRight": "5px",
+        "bottomRight": "5px",
+        "bottomLeft": "5px"
+      },
+      "shadow": "none"
+    },
+    "buttonSecondary": {
+      "background": "#EEB5B5",
+      "textColor": "#333333",
+      "borderRadius": "0px",
+      "borderRadiusCorners": {
+        "topLeft": "0px",
+        "topRight": "0px",
+        "bottomRight": "0px",
+        "bottomLeft": "0px"
+      },
+      "shadow": "none"
+    }
+  },
+  "images": {
+    "logo": "https://palodandloya.com/wp-content/uploads/2024/11/Palod-Loya-Chartered-logo-version-2-01.png",
+    "favicon": "https://palodandloya.com/wp-content/uploads/2024/11/cropped-Palod-Loya-Chartered-logo-version-2-01-32x32.png",
+    "ogImage": null,
+    "logoHref": "https://palodandloya.com"
+  },
+  "__llm_logo_reasoning": {
+    "selectedIndex": 0,
+    "reasoning": "Selected #0 because it is visible, located in the header, links to the homepage, and matches the brand name 'Palod & Loya'.",
+    "confidence": 0.9,
+    "source": "llm"
+  },
+  "__llm_button_reasoning": {
+    "primary": {
+      "index": 1,
+      "text": "Contact Us",
+      "reasoning": "Button #1 uses the vibrant brand color #295782 and has action-oriented text 'Contact Us', making it the primary CTA."
+    },
+    "secondary": {
+      "index": 0,
+      "text": "Contact Us",
+      "reasoning": "Button #0 has a different color group (#EEB5B5) and serves as a secondary action with the same text 'Contact Us'."
+    },
+    "confidence": 0.95
+  },
+  "personality": {
+    "tone": "professional",
+    "energy": "medium",
+    "targetAudience": "business professionals seeking accounting services"
+  },
+  "designSystem": {
+    "framework": "custom",
+    "componentLibrary": ""
+  },
+  "confidence": {
+    "buttons": 0.95,
+    "colors": 0.9,
+    "overall": 0.925
+  },
+  "__llm_metadata": {
+    "logoSelection": {
+      "llmCalled": true,
+      "llmSucceeded": true,
+      "finalSource": "llm",
+      "rawLogoSelection": {
+        "selectedLogoIndex": 0,
+        "selectedLogoReasoning": "Selected #0 because it is visible, located in the header, links to the homepage, and matches the brand name 'Palod & Loya'.",
+        "confidence": 0.9
+      }
+    },
+    "buttonClassification": {
+      "llmCalled": true,
+      "llmSucceeded": true
+    }
+  }
+}

@@ -1,5 +1,5 @@
 import { Link } from "wouter";
-import { Facebook, Linkedin, Mail, MapPin, Phone } from "lucide-react";
+import { Facebook, Instagram, Linkedin, Mail, MapPin, Phone, Youtube } from "lucide-react";
 
 export function Footer() {
   return (
@@ -20,12 +20,18 @@ export function Footer() {
             <p className="text-sm text-gray-300 leading-relaxed">
               A heritage firm blending deep expertise with approachable service. Your financial clarity is our expertise.
             </p>
-            <div className="flex gap-4">
-              <a href="https://www.linkedin.com/company/mehtaandassociates" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn" className="w-10 h-10 rounded-full bg-white/10 flex items-center justify-center hover:bg-secondary hover:text-primary transition-colors" data-testid="footer-social-linkedin">
-                <Linkedin size={18} />
+            <div className="flex gap-3 flex-wrap">
+              <a href="https://www.linkedin.com/company/mehtaandassociates" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn" className="w-9 h-9 rounded-full bg-white/10 flex items-center justify-center hover:bg-secondary hover:text-primary transition-colors" data-testid="footer-social-linkedin">
+                <Linkedin size={16} />
               </a>
-              <a href="https://www.facebook.com/mehtaandassociates" target="_blank" rel="noopener noreferrer" aria-label="Facebook" className="w-10 h-10 rounded-full bg-white/10 flex items-center justify-center hover:bg-secondary hover:text-primary transition-colors" data-testid="footer-social-facebook">
-                <Facebook size={18} />
+              <a href="https://www.facebook.com/mehtaandassociates" target="_blank" rel="noopener noreferrer" aria-label="Facebook" className="w-9 h-9 rounded-full bg-white/10 flex items-center justify-center hover:bg-secondary hover:text-primary transition-colors" data-testid="footer-social-facebook">
+                <Facebook size={16} />
+              </a>
+              <a href="https://www.youtube.com/@mehtaandassociates" target="_blank" rel="noopener noreferrer" aria-label="YouTube" className="w-9 h-9 rounded-full bg-white/10 flex items-center justify-center hover:bg-secondary hover:text-primary transition-colors" data-testid="footer-social-youtube">
+                <Youtube size={16} />
+              </a>
+              <a href="https://www.instagram.com/mehtaandassociates" target="_blank" rel="noopener noreferrer" aria-label="Instagram" className="w-9 h-9 rounded-full bg-white/10 flex items-center justify-center hover:bg-secondary hover:text-primary transition-colors" data-testid="footer-social-instagram">
+                <Instagram size={16} />
               </a>
             </div>
           </div>
