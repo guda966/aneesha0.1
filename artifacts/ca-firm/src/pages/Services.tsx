@@ -12,7 +12,8 @@ import {
   Globe2, 
   BookOpenCheck,
   TrendingUp,
-  Scale
+  Scale,
+  Lightbulb
 } from "lucide-react";
 
 export default function Services() {
@@ -71,10 +72,16 @@ export default function Services() {
       items: ["Cloud-based Bookkeeping", "Payroll Processing", "Preparation of Financial Statements", "Virtual CFO Services", "MIS Reporting"]
     },
     {
-      id: "advisory",
+      id: "project-finance",
       title: "Project Finance & Valuation",
       icon: TrendingUp,
       items: ["Preparation of Project Reports", "CMA Data for Bank Loans", "Business & Share Valuations", "Due Diligence Reviews", "Mergers & Acquisitions Advisory"]
+    },
+    {
+      id: "business-advisory",
+      title: "Business Advisory",
+      icon: Lightbulb,
+      items: ["Business Structuring & Restructuring", "Start-up Advisory & Fundraising Compliance", "Virtual CFO & Management Consulting", "Risk Management & Internal Controls", "Succession Planning & Family Business Advisory"]
     }
   ];
 
