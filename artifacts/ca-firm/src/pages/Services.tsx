@@ -13,7 +13,15 @@ import {
   BookOpenCheck,
   TrendingUp,
   Scale,
-  Lightbulb
+  Lightbulb,
+  Factory,
+  MonitorPlay,
+  Stethoscope,
+  GraduationCap,
+  ShoppingCart,
+  Hotel,
+  LineChart,
+  Heart
 } from "lucide-react";
 
 export default function Services() {
@@ -145,6 +153,54 @@ export default function Services() {
               </motion.div>
             ))}
           </motion.div>
+        </div>
+      </section>
+
+      {/* Industries We Serve */}
+      <section className="py-16 bg-white border-t border-gray-100" data-testid="section-industries">
+        <div className="container mx-auto px-4 md:px-6">
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.5 }}
+            className="text-center mb-12"
+          >
+            <p className="text-secondary text-xs font-semibold tracking-widest uppercase mb-2">Sector Expertise</p>
+            <h2 className="text-3xl md:text-4xl font-serif font-bold text-primary">Industries We Serve</h2>
+            <p className="text-gray-500 mt-3 max-w-xl mx-auto text-sm">Deep domain knowledge across sectors — so your advice is never generic.</p>
+          </motion.div>
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
+            {[
+              { title: "Manufacturing", icon: Factory, desc: "Cost audits, inventory valuation, supply chain GST optimisation, and capex advisory." },
+              { title: "Real Estate & Construction", icon: Building2, desc: "RERA compliance, POC revenue recognition, JDA taxation, and project fund structuring." },
+              { title: "IT & Startups", icon: MonitorPlay, desc: "Valuation for funding rounds, ESOP structuring, STPI benefits, and virtual CFO services." },
+              { title: "Healthcare & Pharma", icon: Stethoscope, desc: "Equipment depreciation advisory, hospital trust compliance, and pharma transfer pricing." },
+              { title: "Education", icon: GraduationCap, desc: "Tax exemptions for institutions, Sec 10(23C) certifications, and FCRA compliance." },
+              { title: "NGO & Trusts", icon: Heart, desc: "12A/80G registrations, trust audits, CSR fund advisory, and FCRA compliance." },
+              { title: "Retail & FMCG", icon: ShoppingCart, desc: "Multi-state GST compliance, POS audits, franchise structuring, and working capital management." },
+              { title: "Hospitality", icon: Hotel, desc: "ITC optimisation on capital goods, payroll structuring, and foreign exchange earning benefits." },
+              { title: "Financial Services", icon: LineChart, desc: "Concurrent audits, NBFC compliance, RBI reporting, and portfolio valuation." },
+            ].map((ind, i) => (
+              <motion.div
+                key={ind.title}
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.4, delay: i * 0.06 }}
+              >
+                <div className="flex gap-4 p-5 rounded-xl border border-gray-100 bg-gray-50 hover:border-secondary/40 hover:bg-white hover:shadow-md transition-all duration-200 h-full group">
+                  <div className="mt-0.5 shrink-0 w-10 h-10 rounded-lg bg-primary/10 flex items-center justify-center group-hover:bg-primary transition-colors duration-200">
+                    <ind.icon className="w-5 h-5 text-primary group-hover:text-white transition-colors duration-200" />
+                  </div>
+                  <div>
+                    <h4 className="font-semibold text-primary text-sm mb-1 font-serif">{ind.title}</h4>
+                    <p className="text-xs text-gray-500 leading-relaxed">{ind.desc}</p>
+                  </div>
+                </div>
+              </motion.div>
+            ))}
+          </div>
         </div>
       </section>
 
