@@ -99,9 +99,6 @@ export function Header() {
                 {link.label}
               </Link>
             ))}
-            <Button asChild className="bg-secondary text-white hover:bg-secondary/90 shadow-none font-medium" data-testid="button-get-consultation-desktop">
-              <Link href="/contact">Get Consultation</Link>
-            </Button>
           </nav>
 
           {/* Mobile Toggle */}
@@ -136,11 +133,6 @@ export function Header() {
                 <a href="tel:+912222821234" className="flex items-center gap-1 hover:text-secondary">
                   <Phone size={11} /> +91 22 2282 1234
                 </a>
-              </div>
-              <div className="p-4 pt-2">
-                <Button asChild className="w-full bg-secondary text-white hover:bg-secondary/90 shadow-none" data-testid="button-get-consultation-mobile">
-                  <Link href="/contact" onClick={() => setMobileMenuOpen(false)}>Get Consultation</Link>
-                </Button>
               </div>
             </nav>
           </div>
