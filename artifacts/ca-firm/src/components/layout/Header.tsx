@@ -1,8 +1,7 @@
 import { Link, useLocation } from "wouter";
 import { useState, useEffect, useRef } from "react";
-import { Menu, X, Phone, Mail, Sun, Moon, ChevronDown } from "lucide-react";
+import { Menu, X, Phone, Mail, ChevronDown } from "lucide-react";
 import { cn } from "@/lib/utils";
-import { useTheme } from "@/context/ThemeContext";
 import { AnimatePresence, motion } from "framer-motion";
 
 const serviceLinks = [
@@ -20,7 +19,6 @@ const serviceLinks = [
 
 export function Header() {
   const [location] = useLocation();
-  const { theme, toggleTheme } = useTheme();
   const [isScrolled, setIsScrolled] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [servicesOpen, setServicesOpen] = useState(false);
@@ -182,27 +180,10 @@ export function Header() {
               </Link>
             ))}
 
-            {/* Theme Toggle */}
-            <button
-              onClick={toggleTheme}
-              aria-label="Toggle theme"
-              className="w-8 h-8 flex items-center justify-center rounded-full border border-gray-200 text-gray-600 hover:border-secondary hover:text-secondary transition-colors"
-              data-testid="button-theme-toggle"
-            >
-              {theme === "dark" ? <Sun size={15} /> : <Moon size={15} />}
-            </button>
           </nav>
 
-          {/* Mobile right: theme + hamburger */}
+          {/* Mobile right: hamburger */}
           <div className="md:hidden flex items-center gap-3">
-            <button
-              onClick={toggleTheme}
-              aria-label="Toggle theme"
-              className="w-8 h-8 flex items-center justify-center rounded-full border border-gray-200 text-gray-600"
-              data-testid="button-theme-toggle-mobile"
-            >
-              {theme === "dark" ? <Sun size={15} /> : <Moon size={15} />}
-            </button>
             <button
               className="text-primary p-1"
               onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
