@@ -24,7 +24,7 @@ const formSchema = z.object({
 export default function Contact() {
   useSEO({
     title: "Contact Us",
-    description: "Get in touch with Mehta & Associates for professional CA services in Mumbai. Request a consultation for audit, tax, or advisory needs.",
+    description: "Get in touch with Gantasala & Associates for professional CA services in Mumbai. Request a consultation for audit, tax, or advisory needs.",
   });
 
   const { toast } = useToast();
@@ -111,8 +111,8 @@ export default function Contact() {
                     </div>
                     <div>
                       <h4 className="font-bold text-primary mb-1">Email</h4>
-                      <p className="text-sm text-gray-600">info@mehtaandassociates.com</p>
-                      <p className="text-sm text-gray-600">consult@mehtaandassociates.com</p>
+                      <p className="text-sm text-gray-600">info@gantasalaandassociates.com</p>
+                      <p className="text-sm text-gray-600">consult@gantasalaandassociates.com</p>
                     </div>
                   </div>
 

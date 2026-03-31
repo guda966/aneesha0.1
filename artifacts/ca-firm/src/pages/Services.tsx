@@ -184,7 +184,7 @@ const industries = [
 export default function Services() {
   useSEO({
     title: "Our Services",
-    description: "Comprehensive CA services including Audit, Income Tax, GST, Company Law, FEMA, and Business Advisory by Mehta & Associates.",
+    description: "Comprehensive CA services including Audit, Income Tax, GST, Company Law, FEMA, and Business Advisory by Gantasala & Associates.",
   });
 
   const [expandedId, setExpandedId] = useState<string | null>(null);

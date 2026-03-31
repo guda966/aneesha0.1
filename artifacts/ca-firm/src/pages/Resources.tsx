@@ -264,7 +264,7 @@ const fyYears = ["FY 2024-25", "FY 2023-24", "FY 2022-23"];
 export default function Resources() {
   useSEO({
     title: "Due Dates & Compliance Calendar",
-    description: "Comprehensive Indian compliance calendar — GST, Income Tax, TDS, Company Law, PF/ESI, and FEMA due dates. Stay penalty-free with Mehta & Associates.",
+    description: "Comprehensive Indian compliance calendar — GST, Income Tax, TDS, Company Law, PF/ESI, and FEMA due dates. Stay penalty-free with Gantasala & Associates.",
   });
 
   const [activeTab, setActiveTab] = useState<Category>("All");

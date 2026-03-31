@@ -65,8 +65,8 @@ export function Header() {
             <a href="tel:+919876543210" className="flex items-center gap-1.5 hover:text-secondary transition-colors" data-testid="topbar-phone2">
               <Phone size={11} />+91 98765 43210
             </a>
-            <a href="mailto:info@mehtaandassociates.com" className="flex items-center gap-1.5 hover:text-secondary transition-colors" data-testid="topbar-email">
-              <Mail size={11} />info@mehtaandassociates.com
+            <a href="mailto:info@gantasalaandassociates.com" className="flex items-center gap-1.5 hover:text-secondary transition-colors" data-testid="topbar-email">
+              <Mail size={11} />info@gantasalaandassociates.com
             </a>
           </div>
         </div>
@@ -82,10 +82,10 @@ export function Header() {
         <div className="container mx-auto px-4 md:px-6 flex items-center justify-between">
           <Link href="/" className="flex items-center gap-3 group" data-testid="link-logo">
             <div className="w-10 h-10 bg-primary flex items-center justify-center rounded-sm text-secondary font-serif font-bold text-xl group-hover:bg-primary/90 transition-colors">
-              M&A
+              G&A
             </div>
             <div className="flex flex-col">
-              <span className="font-serif font-bold text-primary text-xl leading-tight tracking-tight">Mehta & Associates</span>
+              <span className="font-serif font-bold text-primary text-xl leading-tight tracking-tight">Gantasala & Associates</span>
               <span className="text-xs text-gray-500 uppercase tracking-widest font-medium">Chartered Accountants</span>
             </div>
           </Link>

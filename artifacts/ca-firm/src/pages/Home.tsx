@@ -160,7 +160,7 @@ function HeroCarousel() {
 export default function Home() {
   useSEO({
     title: "Home",
-    description: "Mehta & Associates - Chartered Accountants in Mumbai. Over 25 years of delivering financial clarity and expert advisory to businesses, individuals, and NRIs.",
+    description: "Gantasala & Associates - Chartered Accountants in Mumbai. Over 25 years of delivering financial clarity and expert advisory to businesses, individuals, and NRIs.",
   });
 
   const [email, setEmail] = useState("");
@@ -330,7 +330,7 @@ export default function Home() {
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-5xl mx-auto">
             {[
               {
-                name: "CA Ramesh Mehta",
+                name: "CA Ramesh Gantasala",
                 role: "Founder & Senior Partner",
                 credentials: "B.Com, FCA, Regd.Valuer",
                 exp: "35+ Years Experience",
@@ -505,7 +505,7 @@ export default function Home() {
           </FadeIn>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
             {[
-              { text: "Mehta & Associates has been our statutory auditor for 10 years. Their meticulous approach and deep knowledge of accounting standards give our board immense confidence.", author: "Rajiv D.", role: "CFO, Manufacturing Enterprise" },
+              { text: "Gantasala & Associates has been our statutory auditor for 10 years. Their meticulous approach and deep knowledge of accounting standards give our board immense confidence.", author: "Rajiv D.", role: "CFO, Manufacturing Enterprise" },
               { text: "As an NRI, navigating Indian tax laws was overwhelming until I engaged this firm. Their DTAA expertise saved me significant tax and completely removed my compliance anxiety.", author: "Priya S.", role: "NRI Client, Dubai" },
               { text: "They are more than just accountants; they are true business advisors. Their restructuring advice was pivotal during our recent acquisition phase.", author: "Amit K.", role: "Director, IT Services Co." }
             ].map((t, i) => (
@@ -534,7 +534,7 @@ export default function Home() {
           <FadeIn>
             <div className="text-center mb-12">
               <h2 className="text-xs font-semibold tracking-widest text-secondary uppercase mb-3">Why Us</h2>
-              <h3 className="text-3xl font-serif font-bold">Why Choose Mehta & Associates?</h3>
+              <h3 className="text-3xl font-serif font-bold">Why Choose Gantasala & Associates?</h3>
             </div>
           </FadeIn>
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">

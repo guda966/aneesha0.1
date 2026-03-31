@@ -19,7 +19,7 @@ function setOrCreateMeta(selector: string, attrName: string, attrValue: string, 
 
 export function useSEO({ title, description, image, url }: SEOProps) {
   useEffect(() => {
-    const fullTitle = `${title} | Mehta & Associates — Chartered Accountants`;
+    const fullTitle = `${title} | Gantasala & Associates — Chartered Accountants`;
     document.title = fullTitle;
 
     const pageUrl = url || window.location.href;
@@ -34,7 +34,7 @@ export function useSEO({ title, description, image, url }: SEOProps) {
     if (pageImage) {
       setOrCreateMeta('meta[property="og:image"]', 'property', 'og:image', pageImage);
     }
-    setOrCreateMeta('meta[property="og:site_name"]', 'property', 'og:site_name', 'Mehta & Associates');
+    setOrCreateMeta('meta[property="og:site_name"]', 'property', 'og:site_name', 'Gantasala & Associates');
 
     setOrCreateMeta('meta[name="twitter:card"]', 'name', 'twitter:card', 'summary_large_image');
     setOrCreateMeta('meta[name="twitter:title"]', 'name', 'twitter:title', fullTitle);

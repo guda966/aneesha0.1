@@ -13,7 +13,7 @@ export function Footer() {
                 M&A
               </div>
               <div className="flex flex-col">
-                <span className="font-serif font-bold text-white text-xl leading-tight tracking-tight">Mehta & Associates</span>
+                <span className="font-serif font-bold text-white text-xl leading-tight tracking-tight">Gantasala & Associates</span>
                 <span className="text-xs text-gray-300 uppercase tracking-widest font-medium">Chartered Accountants</span>
               </div>
             </Link>
@@ -57,7 +57,7 @@ export function Footer() {
               </li>
               <li className="flex items-center gap-3">
                 <Mail size={18} className="text-secondary shrink-0" />
-                <span>info@mehtaandassociates.com</span>
+                <span>info@gantasalaandassociates.com</span>
               </li>
               <li className="pt-2 space-y-2">
                 <div>
@@ -78,7 +78,7 @@ export function Footer() {
             <strong>Disclaimer:</strong> The information on this website is for general guidance only and does not constitute professional advice. Please consult our experts for specific situations.
           </p>
           <p className="text-xs text-gray-400 shrink-0">
-            &copy; {new Date().getFullYear()} Mehta & Associates. All rights reserved.
+            &copy; {new Date().getFullYear()} Gantasala & Associates. All rights reserved.
           </p>
         </div>
         <div className="text-center pt-4 mt-2 border-t border-white/5">

@@ -7,7 +7,7 @@ import meetingImg from "@/assets/images/meeting.png";
 export default function About() {
   useSEO({
     title: "About The Firm",
-    description: "Learn about Mehta & Associates history, our mission, core values, and meet our founding partners.",
+    description: "Learn about Gantasala & Associates history, our mission, core values, and meet our founding partners.",
   });
 
   return (
@@ -44,7 +44,7 @@ export default function About() {
               <h2 className="text-sm font-semibold tracking-widest text-secondary uppercase mb-3">Our History</h2>
               <h3 className="text-3xl font-serif font-bold text-primary mb-6">Building Trust Since 1998</h3>
               <p className="text-gray-600 mb-6 leading-relaxed">
-                Founded by CA Ramesh Mehta in a modest office in Fort, Mumbai, Mehta & Associates began with a simple philosophy: provide technical excellence with personal attention. Over the past 25 years, the firm has grown from a single-partner practice to a robust team of professionals serving clients globally.
+                Founded by CA Ramesh Gantasala in a modest office in Fort, Mumbai, Gantasala & Associates began with a simple philosophy: provide technical excellence with personal attention. Over the past 25 years, the firm has grown from a single-partner practice to a robust team of professionals serving clients globally.
               </p>
               <p className="text-gray-600 mb-8 leading-relaxed">
                 Today, we operate from our modern headquarters in Nariman Point, but our core ethos remains unchanged. We treat our clients' businesses as our own, providing insights that protect their interests and propel their growth.
@@ -121,7 +121,7 @@ export default function About() {
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
             {[
-              { name: "CA Ramesh Mehta", role: "Founder & Senior Partner", credentials: "FCA, B.Com", memNo: "Mem No: 045123", exp: "35+ Years Experience", desc: "Specializes in Corporate Taxation, Representation before ITAT, and Strategic Business Advisory." },
+              { name: "CA Ramesh Gantasala", role: "Founder & Senior Partner", credentials: "FCA, B.Com", memNo: "Mem No: 045123", exp: "35+ Years Experience", desc: "Specializes in Corporate Taxation, Representation before ITAT, and Strategic Business Advisory." },
               { name: "CA Priya Sharma", role: "Managing Partner", credentials: "FCA, DISA (ICAI)", memNo: "Mem No: 128945", exp: "20+ Years Experience", desc: "Leads the Statutory Audit and Assurance practice. Expert in Ind AS compliance and corporate governance." },
               { name: "CA Vikram Desai", role: "Partner - Indirect Tax", credentials: "FCA, LL.B", memNo: "Mem No: 145678", exp: "15+ Years Experience", desc: "Heads the GST and Indirect Tax division. Regularly advises Fortune 500 companies on complex supply chain taxation." }
             ].map((partner, i) => (
