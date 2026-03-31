@@ -2,7 +2,7 @@ import { useSEO } from "@/hooks/use-seo";
 import { motion } from "framer-motion";
 import { useState } from "react";
 import { Card, CardContent } from "@/components/ui/card";
-import { ArrowRight, CalendarDays, ExternalLink, FileText, AlertCircle, Download, Info } from "lucide-react";
+import { ArrowRight, CalendarDays, ExternalLink, FileText, AlertCircle, Download, Info, ChevronDown, ChevronUp } from "lucide-react";
 import { Link } from "wouter";
 
 type Category = "All" | "GST" | "Income Tax" | "TDS / TCS" | "Company Law" | "PF / ESI" | "FEMA";
@@ -102,12 +102,164 @@ const officialPortals = [
   { name: "RBI FIRMS Portal", url: "https://firms.rbi.org.in", desc: "FC-GPR, FC-TRS, FLA return, FEMA filings", tag: "FEMA" },
 ];
 
-const articles = [
-  { title: "New Tax Regime vs Old Tax Regime — Which is Better for FY 2024-25?", date: "April 15, 2024", tag: "Income Tax", excerpt: "A comprehensive analysis of which regime benefits salaried individuals, business owners, and senior citizens based on deductions and income slabs." },
-  { title: "GST ITC (Input Tax Credit) — Common Mistakes and How to Avoid Them", date: "March 22, 2024", tag: "GST", excerpt: "Understanding GSTR-2B reconciliation, blocked credits under Sec 17(5), and time limit for ITC claims — practical guidance for businesses." },
-  { title: "Section 43B(h) — TDS on Payments to MSMEs from FY 2023-24", date: "February 10, 2024", tag: "TDS / TCS", excerpt: "New disallowance provision for delayed payments to MSMEs and how to ensure your business remains compliant with Form MSME-1." },
-  { title: "FDI in India — FEMA Compliance Checklist for Startups Raising Foreign Capital", date: "January 5, 2024", tag: "FEMA", excerpt: "Step-by-step FEMA/RBI compliance guide covering FC-GPR filings, valuation certificates, and sectoral caps for foreign investments." },
+interface Article {
+  title: string;
+  date: string;
+  tag: Exclude<Category, "All">;
+  excerpt: string;
+  url: string;
+  fy: string;
+}
+
+const articles: Article[] = [
+  // FY 2024-25
+  {
+    title: "New Tax Regime vs Old Tax Regime — Which is Better for FY 2024-25?",
+    date: "April 2024",
+    tag: "Income Tax",
+    excerpt: "A comprehensive analysis of which regime benefits salaried individuals, business owners, and senior citizens based on deductions and income slabs.",
+    url: "https://www.incometax.gov.in/iec/foportal/help/individual/return-applicable-1#taxregime",
+    fy: "FY 2024-25",
+  },
+  {
+    title: "Budget 2024 — Key Changes in Income Tax Slabs & Deductions",
+    date: "February 2024",
+    tag: "Income Tax",
+    excerpt: "Union Budget 2024 revised the new tax regime slabs, raised the standard deduction to ₹75,000, and amended capital gains tax provisions. Full summary.",
+    url: "https://incometaxindia.gov.in/Pages/press-releases/2024-budget.aspx",
+    fy: "FY 2024-25",
+  },
+  {
+    title: "GSTR-9 Annual Return FY 2024-25 — Filing Guide & Common Errors",
+    date: "October 2024",
+    tag: "GST",
+    excerpt: "Step-by-step guidance for filing GSTR-9 for FY 2024-25, reconciliation with books of accounts, and avoiding the most common reconciliation errors.",
+    url: "https://tutorial.gst.gov.in/downloads/training/returnsofgst/GSTR9_user_manual.pdf",
+    fy: "FY 2024-25",
+  },
+  {
+    title: "FLA Return 2024 — Who Must File and How",
+    date: "June 2024",
+    tag: "FEMA",
+    excerpt: "Indian companies with foreign investment or overseas investment are required to file FLA returns by 15th July. Complete guidance on data points and filing on RBI portal.",
+    url: "https://flair.rbi.org.in/fla/faces/pages/login.xhtml",
+    fy: "FY 2024-25",
+  },
+  // FY 2023-24
+  {
+    title: "Section 43B(h) — Disallowance for Delayed Payments to MSMEs",
+    date: "March 2024",
+    tag: "TDS / TCS",
+    excerpt: "New amendment effective FY 2023-24: expenses to MSMEs disallowed if not paid within 15/45 days. Form MSME-1 compliance and impact on P&L.",
+    url: "https://www.incometax.gov.in/iec/foportal/help/individual/section43b",
+    fy: "FY 2023-24",
+  },
+  {
+    title: "GST ITC (Input Tax Credit) — GSTR-2B Reconciliation & Blocked Credits",
+    date: "January 2024",
+    tag: "GST",
+    excerpt: "Understanding GSTR-2B auto-population, blocked credits under Sec 17(5), ITC reversals, and the two-year time limit for claiming input tax credit.",
+    url: "https://www.gst.gov.in/newsandupdates/read/614",
+    fy: "FY 2023-24",
+  },
+  {
+    title: "Director KYC (DIR-3 KYC) — Annual Compliance for All DIN Holders",
+    date: "August 2023",
+    tag: "Company Law",
+    excerpt: "Every director holding a DIN must file DIR-3 KYC by 30th September each year. Failure results in deactivation of DIN. Complete guide to filing on MCA21.",
+    url: "https://www.mca.gov.in/content/mca/global/en/mca/master-data/MDS.html",
+    fy: "FY 2023-24",
+  },
+  // FY 2022-23
+  {
+    title: "FDI in India — FC-GPR Filing & FEMA Compliance for Startups",
+    date: "December 2022",
+    tag: "FEMA",
+    excerpt: "Step-by-step guide to FEMA compliance when raising foreign capital — FC-GPR filings within 30 days, valuation certificates, and sectoral cap restrictions.",
+    url: "https://firms.rbi.org.in/firms/faces/pages/login.xhtml",
+    fy: "FY 2022-23",
+  },
+  {
+    title: "Understanding TDS on Salary — Form 12BB, Form 16, and Section 192",
+    date: "June 2022",
+    tag: "TDS / TCS",
+    excerpt: "Employer obligations under Sec 192, collecting investment declaration in Form 12BB, and issuing Form 16 to employees — a practical employer's guide.",
+    url: "https://www.tdscpc.gov.in/app/login.xhtml",
+    fy: "FY 2022-23",
+  },
 ];
+
+interface Download {
+  label: string;
+  desc: string;
+  url: string;
+  tag: Exclude<Category, "All">;
+  fy: string;
+}
+
+const downloads: Download[] = [
+  // FY 2024-25
+  {
+    label: "ITR-1 to ITR-7 Excel Utilities (AY 2025-26)",
+    desc: "Offline Excel utilities for filing ITR for AY 2025-26 (FY 2024-25)",
+    url: "https://www.incometax.gov.in/iec/foportal/downloads/income-tax-returns",
+    tag: "Income Tax",
+    fy: "FY 2024-25",
+  },
+  {
+    label: "GST Return Filing — Offline Tool",
+    desc: "GSTN offline tool for preparing GSTR-1, GSTR-3B, and GSTR-9 returns",
+    url: "https://www.gst.gov.in/download/returns",
+    tag: "GST",
+    fy: "FY 2024-25",
+  },
+  {
+    label: "Form 3CA-3CB-3CD — Tax Audit Report Format",
+    desc: "ICAI prescribed format for Tax Audit Report under Section 44AB",
+    url: "https://resource.cdn.icai.org/69052bos54210.pdf",
+    tag: "Income Tax",
+    fy: "FY 2024-25",
+  },
+  // FY 2023-24
+  {
+    label: "ROC Annual Filing — AOC-4 & MGT-7 Forms",
+    desc: "MCA e-forms for annual accounts and annual return filing on MCA21 portal",
+    url: "https://www.mca.gov.in/content/mca/global/en/mca/e-filing/company-forms-download.html",
+    tag: "Company Law",
+    fy: "FY 2023-24",
+  },
+  {
+    label: "GSTR-9 / GSTR-9C User Manual (FY 2023-24)",
+    desc: "Official GSTN user manual for filing Annual Return and Reconciliation Statement",
+    url: "https://tutorial.gst.gov.in/downloads/training/returnsofgst/GSTR9_user_manual.pdf",
+    tag: "GST",
+    fy: "FY 2023-24",
+  },
+  {
+    label: "Form 16 / 16A TDS Certificate (TRACES)",
+    desc: "Download Form 16/16A for employees and deductees from TRACES portal",
+    url: "https://www.tdscpc.gov.in/app/login.xhtml",
+    tag: "TDS / TCS",
+    fy: "FY 2023-24",
+  },
+  // FY 2022-23
+  {
+    label: "FC-GPR / FLA Return — RBI FIRMS Portal Guide",
+    desc: "RBI FIRMS portal for reporting FDI inflows, share transfers, and FLA returns",
+    url: "https://firms.rbi.org.in/firms/faces/pages/login.xhtml",
+    tag: "FEMA",
+    fy: "FY 2022-23",
+  },
+  {
+    label: "EPFO — ECR (Electronic Challan cum Return)",
+    desc: "Unified EPFO employer portal for PF ECR upload and payment",
+    url: "https://unifiedportal-emp.epfindia.gov.in/epfo/",
+    tag: "PF / ESI",
+    fy: "FY 2022-23",
+  },
+];
+
+const fyYears = ["FY 2024-25", "FY 2023-24", "FY 2022-23"];
 
 export default function Resources() {
   useSEO({
@@ -116,6 +268,8 @@ export default function Resources() {
   });
 
   const [activeTab, setActiveTab] = useState<Category>("All");
+  const [openArticleFY, setOpenArticleFY] = useState<string>("FY 2024-25");
+  const [openDownloadFY, setOpenDownloadFY] = useState<string>("FY 2024-25");
 
   const filtered = activeTab === "All" ? dueDates : dueDates.filter(d => d.category === activeTab);
 
@@ -270,78 +424,129 @@ export default function Resources() {
         </div>
       </section>
 
-      {/* Articles + Downloads */}
+      {/* Articles by FY */}
       <section className="py-16 bg-gray-50 border-t border-gray-100" data-testid="section-articles">
         <div className="container mx-auto px-4 md:px-6">
-          <div className="grid grid-cols-1 lg:grid-cols-3 gap-12">
+          <div className="flex items-center gap-3 mb-10">
+            <FileText className="text-secondary w-6 h-6" />
+            <div>
+              <h3 className="text-2xl font-serif font-bold text-primary">Articles & Insights</h3>
+              <p className="text-sm text-gray-500 mt-0.5">Segregated by Financial Year — click any article to read on the official source</p>
+            </div>
+          </div>
 
-            {/* Articles */}
-            <div className="lg:col-span-2">
-              <div className="flex items-center gap-3 mb-8">
-                <FileText className="text-secondary w-6 h-6" />
-                <h3 className="text-2xl font-serif font-bold text-primary">Latest Articles & Insights</h3>
-              </div>
-              <div className="space-y-6">
-                {articles.map((article, i) => (
-                  <motion.div
-                    key={i}
-                    initial={{ opacity: 0, x: -15 }}
-                    whileInView={{ opacity: 1, x: 0 }}
-                    viewport={{ once: true }}
-                    transition={{ delay: i * 0.1 }}
-                    className="group bg-white border border-gray-200 rounded-xl p-6 hover:border-secondary/40 hover:shadow-md transition-all duration-300 cursor-pointer"
-                    data-testid={`article-card-${i}`}
+          <div className="space-y-4">
+            {fyYears.map(fy => {
+              const fyArticles = articles.filter(a => a.fy === fy);
+              const isOpen = openArticleFY === fy;
+              return (
+                <div key={fy} className="border border-gray-200 rounded-xl overflow-hidden bg-white shadow-sm" data-testid={`article-fy-${fy}`}>
+                  <button
+                    className="w-full flex items-center justify-between px-6 py-4 text-left hover:bg-gray-50 transition-colors"
+                    onClick={() => setOpenArticleFY(isOpen ? "" : fy)}
+                    data-testid={`article-fy-toggle-${fy}`}
                   >
-                    <div className="flex items-start justify-between gap-4">
-                      <div className="flex-1">
-                        <div className="flex items-center gap-2 mb-2">
-                          <span className={`text-xs font-bold px-2.5 py-0.5 rounded-full ${categoryColors[article.tag as Exclude<Category, "All">]}`}>
-                            {article.tag}
-                          </span>
-                          <span className="text-xs text-gray-400">{article.date}</span>
-                        </div>
-                        <h4 className="font-bold text-primary font-serif text-lg leading-snug mb-2 group-hover:text-secondary transition-colors">{article.title}</h4>
-                        <p className="text-sm text-gray-600 leading-relaxed">{article.excerpt}</p>
-                      </div>
-                      <ArrowRight className="text-gray-300 group-hover:text-secondary transition-colors shrink-0 mt-1 group-hover:translate-x-1 duration-300" size={20} />
+                    <div className="flex items-center gap-3">
+                      <span className="text-lg font-serif font-bold text-primary">{fy}</span>
+                      <span className="text-xs font-semibold bg-secondary/10 text-secondary px-2.5 py-0.5 rounded-full">{fyArticles.length} articles</span>
                     </div>
-                  </motion.div>
-                ))}
+                    {isOpen ? <ChevronUp className="text-secondary w-5 h-5 shrink-0" /> : <ChevronDown className="text-gray-400 w-5 h-5 shrink-0" />}
+                  </button>
+                  {isOpen && (
+                    <div className="border-t border-gray-100 divide-y divide-gray-50">
+                      {fyArticles.map((article, i) => (
+                        <a
+                          key={i}
+                          href={article.url}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="group flex items-start gap-4 px-6 py-5 hover:bg-gray-50 transition-colors"
+                          data-testid={`article-link-${fy}-${i}`}
+                        >
+                          <div className="flex-1 min-w-0">
+                            <div className="flex items-center gap-2 mb-1.5">
+                              <span className={`text-xs font-bold px-2.5 py-0.5 rounded-full ${categoryColors[article.tag]}`}>{article.tag}</span>
+                              <span className="text-xs text-gray-400">{article.date}</span>
+                            </div>
+                            <h4 className="font-bold text-primary font-serif text-base leading-snug mb-1.5 group-hover:text-secondary transition-colors">{article.title}</h4>
+                            <p className="text-sm text-gray-600 leading-relaxed">{article.excerpt}</p>
+                          </div>
+                          <ExternalLink className="text-gray-300 group-hover:text-secondary transition-colors shrink-0 mt-1 w-5 h-5" />
+                        </a>
+                      ))}
+                    </div>
+                  )}
+                </div>
+              );
+            })}
+          </div>
+        </div>
+      </section>
+
+      {/* Downloads by FY */}
+      <section className="py-16 bg-white border-t border-gray-100" data-testid="section-downloads">
+        <div className="container mx-auto px-4 md:px-6">
+          <div className="grid grid-cols-1 lg:grid-cols-3 gap-12">
+            <div className="lg:col-span-2">
+              <div className="flex items-center gap-3 mb-10">
+                <Download className="text-secondary w-6 h-6" />
+                <div>
+                  <h3 className="text-2xl font-serif font-bold text-primary">Forms & Downloads</h3>
+                  <p className="text-sm text-gray-500 mt-0.5">Segregated by Financial Year — all links redirect to official government portals</p>
+                </div>
+              </div>
+
+              <div className="space-y-4">
+                {fyYears.map(fy => {
+                  const fyDownloads = downloads.filter(d => d.fy === fy);
+                  const isOpen = openDownloadFY === fy;
+                  return (
+                    <div key={fy} className="border border-gray-200 rounded-xl overflow-hidden bg-gray-50 shadow-sm" data-testid={`download-fy-${fy}`}>
+                      <button
+                        className="w-full flex items-center justify-between px-6 py-4 text-left hover:bg-gray-100 transition-colors"
+                        onClick={() => setOpenDownloadFY(isOpen ? "" : fy)}
+                        data-testid={`download-fy-toggle-${fy}`}
+                      >
+                        <div className="flex items-center gap-3">
+                          <span className="text-lg font-serif font-bold text-primary">{fy}</span>
+                          <span className="text-xs font-semibold bg-primary/10 text-primary px-2.5 py-0.5 rounded-full">{fyDownloads.length} resources</span>
+                        </div>
+                        {isOpen ? <ChevronUp className="text-secondary w-5 h-5 shrink-0" /> : <ChevronDown className="text-gray-400 w-5 h-5 shrink-0" />}
+                      </button>
+                      {isOpen && (
+                        <div className="border-t border-gray-200 bg-white divide-y divide-gray-50">
+                          {fyDownloads.map((item, i) => (
+                            <a
+                              key={i}
+                              href={item.url}
+                              target="_blank"
+                              rel="noopener noreferrer"
+                              className="group flex items-center gap-4 px-6 py-4 hover:bg-gray-50 transition-colors"
+                              data-testid={`download-link-${fy}-${i}`}
+                            >
+                              <div className="w-10 h-10 rounded-lg bg-primary/5 group-hover:bg-secondary/10 flex items-center justify-center shrink-0 transition-colors">
+                                <Download className="w-5 h-5 text-primary group-hover:text-secondary transition-colors" />
+                              </div>
+                              <div className="flex-1 min-w-0">
+                                <div className="flex items-center gap-2 mb-0.5">
+                                  <span className="font-semibold text-primary text-sm group-hover:text-secondary transition-colors">{item.label}</span>
+                                  <span className={`text-xs font-bold px-2 py-0.5 rounded-full hidden sm:inline-block ${categoryColors[item.tag]}`}>{item.tag}</span>
+                                </div>
+                                <p className="text-xs text-gray-500">{item.desc}</p>
+                              </div>
+                              <ExternalLink className="w-4 h-4 text-gray-300 group-hover:text-secondary shrink-0 transition-colors" />
+                            </a>
+                          ))}
+                        </div>
+                      )}
+                    </div>
+                  );
+                })}
               </div>
             </div>
 
-            {/* Sidebar */}
-            <div className="space-y-8">
-              {/* Downloads */}
-              <div className="bg-white border border-gray-200 rounded-xl p-6 shadow-sm">
-                <div className="flex items-center gap-2 mb-5 border-b border-gray-100 pb-4">
-                  <Download className="text-secondary w-5 h-5" />
-                  <h4 className="text-lg font-serif font-bold text-primary">Useful Downloads</h4>
-                </div>
-                <ul className="space-y-4">
-                  {[
-                    { label: "KYC Document Checklist", testId: "download-kyc" },
-                    { label: "Tax Audit Data Requirements", testId: "download-audit" },
-                    { label: "Company Incorporation Checklist", testId: "download-inc" },
-                    { label: "GST Registration Documents List", testId: "download-gst" },
-                    { label: "NRI / FEMA Compliance Guide", testId: "download-fema" },
-                  ].map((item, i) => (
-                    <li key={i}>
-                      <a
-                        href="#"
-                        className="flex items-center justify-between group py-2 border-b border-gray-50"
-                        data-testid={item.testId}
-                        onClick={e => e.preventDefault()}
-                      >
-                        <span className="text-sm text-gray-700 group-hover:text-primary transition-colors font-medium">{item.label}</span>
-                        <Download className="w-4 h-4 text-gray-300 group-hover:text-secondary transition-colors" />
-                      </a>
-                    </li>
-                  ))}
-                </ul>
-              </div>
-
-              {/* CTA Card */}
+            {/* Sidebar CTA */}
+            <div className="space-y-6">
               <div className="bg-primary text-white rounded-xl p-6">
                 <CalendarDays className="text-secondary w-8 h-8 mb-4" />
                 <h4 className="font-serif font-bold text-lg mb-2">Need Help with Filings?</h4>
@@ -349,6 +554,20 @@ export default function Resources() {
                 <Link href="/contact" className="inline-flex items-center gap-2 bg-secondary text-white text-sm font-semibold px-5 py-3 rounded-lg hover:bg-secondary/90 transition-colors" data-testid="link-resources-contact">
                   Get In Touch <ArrowRight size={16} />
                 </Link>
+              </div>
+
+              <div className="bg-gray-50 border border-gray-200 rounded-xl p-6">
+                <h4 className="font-serif font-bold text-primary mb-3">Official Portals</h4>
+                <ul className="space-y-3">
+                  {officialPortals.map((p, i) => (
+                    <li key={i}>
+                      <a href={p.url} target="_blank" rel="noopener noreferrer" className="group flex items-center justify-between text-sm hover:text-secondary transition-colors" data-testid={`sidebar-portal-${i}`}>
+                        <span className="font-medium text-gray-700 group-hover:text-secondary">{p.name}</span>
+                        <ExternalLink className="w-3.5 h-3.5 text-gray-400 group-hover:text-secondary shrink-0" />
+                      </a>
+                    </li>
+                  ))}
+                </ul>
               </div>
             </div>
           </div>
